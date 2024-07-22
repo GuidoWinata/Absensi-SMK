@@ -1,0 +1,15 @@
+::placeholder {
+  @apply text-sm; /* Default size for small screens */
+}
+
+@media (min-width: 768px) {
+  ::placeholder {
+    @apply text-base; /* Medium size for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  ::placeholder {
+    @apply text-lg; /* Larger size for desktops */
+  }
+}
