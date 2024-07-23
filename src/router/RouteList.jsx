@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Login from '../pages/Login';
-import Dashadmin from '../pages/Dashadmin';
+import Dashadmin from '../pages/adminPages/Dashadmin';
 import Mainpage from '../pages/Mainpage';
+import Mainpages from '../layout/DashboardSiswa/Mainpages';
+import Dashsiswa from '../pages/siswaPages/Dashsiswa';
 
 const routes = createBrowserRouter([
   {
@@ -11,7 +13,16 @@ const routes = createBrowserRouter([
   {
     path: '/admin/dashboard',
     element: <Mainpage />,
-    children: [{ path: '', element: <Dashadmin /> }],
+    children: [
+      { path: '', element: <Dashadmin /> },
+    ],
+  },
+  {
+    path: '/siswa/dashboard',
+    element: <Mainpages />,
+    children: [
+      { path: '', element: <Dashsiswa /> },
+    ],
   },
 ]);
 
