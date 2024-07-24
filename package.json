@@ -18,9 +18,16 @@
     "@mui/icons-material": "^5.16.4",
     "@mui/joy": "^5.0.0-beta.48",
     "@mui/material": "^5.16.4",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-date-pickers": "^7.11.0",
+    "date-fns": "^3.6.0",
+    "dayjs": "^1.11.12",
+    "luxon": "^3.4.4",
     "react": "^18.3.1",
+    "react-datepicker": "^7.3.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "^6.25.1",
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

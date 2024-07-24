@@ -1,5 +1,6 @@
 import Logo from '/assets/Logo.svg';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, Tooltip, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 
 const setting = ['Profile', 'Logout'];
@@ -25,24 +26,28 @@ export default function Navbar() {
         <Toolbar sx={{ justifyContent: 'space-between', height: 90 }}>
           <img src={Logo} alt="Logos" />
           <Box sx={{ display: 'flex', gap: 4 }}>
-            <Button
-              onClick={() => handleButtonClick('Dashboard')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'Dashboard' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
-              }}>
-              Dashboard
-            </Button>
-            <Button
-              onClick={() => handleButtonClick('Siswa')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'Siswa' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
-              }}>
-              Siswa
-            </Button>
+            <Link to="dashboard">
+              <Button
+                onClick={() => handleButtonClick('Dashboard')}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Dashboard' ? '#2D8EFF' : 'gray',
+                  '&:hover': { color: '#2D8EFF' },
+                }}>
+                Dashboard
+              </Button>
+            </Link>
+            <Link to="siswa">
+              <Button
+                onClick={() => handleButtonClick('Siswa')}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Siswa' ? '#2D8EFF' : 'gray',
+                  '&:hover': { color: '#2D8EFF' },
+                }}>
+                Siswa
+              </Button>
+            </Link>
             <Button
               onClick={() => handleButtonClick('Absensi')}
               sx={{
