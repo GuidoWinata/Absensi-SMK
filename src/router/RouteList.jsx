@@ -4,6 +4,7 @@ import Dashadmin from '../pages/adminPages/Dashadmin';
 import Mainpage from '../pages/Mainpage';
 import Mainpages from '../layout/DashboardSiswa/Mainpages';
 import Dashsiswa from '../pages/siswaPages/Dashsiswa';
+import { Riwayat } from '../pages/siswaPages/Riwayat';
 
 const routes = createBrowserRouter([
   {
@@ -11,17 +12,18 @@ const routes = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/admin/dashboard',
+    path: '/admin',
     element: <Mainpage />,
     children: [
       { path: '', element: <Dashadmin /> },
     ],
   },
   {
-    path: '/siswa/dashboard',
+    path: '/siswa',
     element: <Mainpages />,
     children: [
       { path: '', element: <Dashsiswa /> },
+      { path: 'riwayat', element: <Riwayat /> }
     ],
   },
 ]);
