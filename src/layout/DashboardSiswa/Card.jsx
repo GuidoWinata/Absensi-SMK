@@ -15,44 +15,12 @@ export default function Card() {
         border: '1px', 
         borderRadius: 2, 
         p: 4,
+        pt: 0,
         mb: 8,
-        boxShadow: '0px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)'
+        boxShadow: '2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)',
+        
       }}>
-        <Box sx={{ 
-            // width: '400px',
-            minHeight: 80,
-            mb: 8,
-            display: 'flex', 
-            flexDirection: 'row', 
-            alignItems: 'center', 
-            justifyContent: 'space-between',
-
-        }}>
-            <Box>
-                <Typography variant="h4"  sx={{ mb: 0.9 }}>
-                    Dalam satu semester
-                </Typography>
-                <Typography color="gray">Rekap Absensi</Typography>
-            </Box>
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                position: 'relatives'
-            }}>
-                <Jam />
-            </Box>
-            <Box>
-
-            </Box>
-        </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="contained" color="success">
-            Absen
-            </Button>
-            <Button variant="contained" color="error">
-            Pulang
-            </Button>
-          </Box>
+        
         <Grid container spacing={7}>
           <Grid item xs={4}>
             <Box

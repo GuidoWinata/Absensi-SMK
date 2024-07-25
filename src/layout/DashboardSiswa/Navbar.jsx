@@ -1,5 +1,6 @@
 import Logo from '/assets/Logo.svg';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, Tooltip, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 
 const setting = ['Profile', 'Logout'];
@@ -25,32 +26,39 @@ export default function Navbar() {
         <Toolbar sx={{ justifyContent: 'space-between', height: 90 }}>
           <img src={Logo} alt="Logos" />
           <Box sx={{ display: 'flex', gap: 4 }}>
+            <Link to="/siswa">
+              <Button
+                onClick={() => handleButtonClick('Dashboard')}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Dashboard' ? '#2D8EFF' : 'gray',
+                  borderBottom: selectedButton === 'Dashboard' ? '2px solid #2D8EFF' : '2px solid transparent',
+                  '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
+                }}>
+                Dashboard
+              </Button>
+            </Link>
+            <Link to="/siswa/riwayat">
+              <Button
+                onClick={() => handleButtonClick('Riwayat')}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Riwayat' ? '#2D8EFF' : 'gray',
+                  borderBottom: selectedButton === 'Riwayat' ? '2px solid #2D8EFF' : '2px solid transparent',
+                  '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
+                }}>
+                Riwayat
+              </Button>
+            </Link>
             <Button
-              onClick={() => handleButtonClick('Dashboard')}
+              onClick={() => handleButtonClick('About')}
               sx={{
                 fontWeight: 'bold',
-                color: selectedButton === 'Dashboard' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
+                color: selectedButton === 'About' ? '#2D8EFF' : 'gray',
+                borderBottom: selectedButton === 'About' ? '2px solid #2D8EFF' : '2px solid transparent',
+                '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
               }}>
-              Dashboard
-            </Button>
-            <Button
-              onClick={() => handleButtonClick('Histori')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'Histori' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
-              }}>
-              Histori
-            </Button>
-            <Button
-              onClick={() => handleButtonClick('Absensi')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'Absensi' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
-              }}>
-              Absensi
+              About
             </Button>
           </Box>
           <Box>

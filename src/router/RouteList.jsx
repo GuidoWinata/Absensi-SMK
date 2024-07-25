@@ -3,6 +3,7 @@ import Login from '../pages/Login';
 import Dashadmin from '../pages/adminPages/Dashadmin';
 import Mainpage from '../pages/Mainpage';
 import Dashsiswa from '../pages/siswaPages/Dashsiswa';
+import { Riwayat } from '../pages/siswaPages/Riwayat';
 import Mainpages from '../layout/DashboardSiswa/Mainpages';
 import Siswaadmin from '../pages/adminPages/Siswaadmin';
 
@@ -20,8 +21,13 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: '/siswa/dashboard',
+    path: '/siswa',
     element: <Mainpages />,
+    children: [
+      { path: '', element: <Dashsiswa /> },
+      { path: 'riwayat', element: <Riwayat /> }
+    ],
+=======
     children: [{ path: '', element: <Dashsiswa /> }],
   },
 ]);
