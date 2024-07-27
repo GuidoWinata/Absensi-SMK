@@ -1,16 +1,30 @@
-import { Box, Grid, Typography, Button } from '@mui/material';
+/** @jsxImportSource @emotion/react */
+import { css, keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import { Box, Grid, Typography } from '@mui/material';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DoneIcon from '@mui/icons-material/Done';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CancelIcon from '@mui/icons-material/Cancel';
 import React from 'react';
-import Jam from './ComponentCard/Jam'
+
+const slideInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const AnimatedCardBox = styled(Box)`
+  animation: ${slideInRight} 0.5s ease-out;
+`;
 
 export default function Card() {
   return (
-    <>
-    <Box sx={{ 
+    <AnimatedCardBox sx={{ 
         width: 'full', 
         border: '1px', 
         borderRadius: 2, 
@@ -18,9 +32,7 @@ export default function Card() {
         pt: 0,
         mb: 8,
         boxShadow: '2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)',
-        
       }}>
-        
         <Grid container spacing={7}>
           <Grid item xs={4}>
             <Box
@@ -38,7 +50,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   1
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
+                <Typography fontWeight="semibold" color="#5A6A85">
                   Total Ijin
                 </Typography>
               </Box>
@@ -60,7 +72,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   0
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
+                <Typography fontWeight="semibold" color="#5A6A85">
                   Total Sakit
                 </Typography>
               </Box>
@@ -82,14 +94,13 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   2
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
+                <Typography fontWeight="semibold" color="#5A6A85">
                   Total Alpha
                 </Typography>
               </Box>
             </Box>
           </Grid>
         </Grid>
-      </Box>
-    </>
+      </AnimatedCardBox>
   );
 }
