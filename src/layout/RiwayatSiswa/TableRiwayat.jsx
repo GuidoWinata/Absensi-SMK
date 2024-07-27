@@ -12,7 +12,7 @@ export default function TableRiwayat () {
     ];
 
   return (
-    <TableContainer component={Paper} sx={{ width: '100%', marginTop: 0, maxHeight: 360 }}>
+    <TableContainer component={Paper} sx={{ width: '100%', marginTop: 0, height: 300 }}>
       <Table>
         <TableHead>
           <TableRow>

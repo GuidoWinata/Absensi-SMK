@@ -25,10 +25,9 @@ const routes = createBrowserRouter([
     element: <Mainpages />,
     children: [
       { path: '', element: <Dashsiswa /> },
+      { path: 'dashboard', element: <Dashsiswa /> },
       { path: 'riwayat', element: <Riwayat /> }
     ],
-=======
-    children: [{ path: '', element: <Dashsiswa /> }],
   },
 ]);
 
