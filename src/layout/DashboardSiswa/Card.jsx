@@ -24,15 +24,7 @@ const AnimatedCardBox = styled(Box)`
 
 export default function Card() {
   return (
-    <AnimatedCardBox sx={{ 
-        width: 'full', 
-        border: '1px', 
-        borderRadius: 2, 
-        p: 4,
-        pt: 0,
-        mb: 8,
-        boxShadow: '2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)',
-      }}>
+    <AnimatedCardBox sx={{ paddingBottom:'40px' }}>
         <Grid container spacing={7}>
           <Grid item xs={4}>
             <Box

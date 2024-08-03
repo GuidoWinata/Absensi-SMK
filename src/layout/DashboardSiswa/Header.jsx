@@ -105,7 +105,7 @@ export default function Card() {
         <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: '4px' }}>
           <button className={`px-4 py-2 rounded-[30px] ${isAbsen ? 'bg-blue-500 text-white' : 'bg-gray-500 text-white'} w-[300px] h-[100px] text-3xl`}
             onClick={handleButtonClick}>
-            {isAbsen ? 'Absen' : 'Pulang'}
+            {isAbsen ? 'Datang' : 'Pulang'}
           </button>
         </Box>
         <Typography sx={{display:'flex', justifyContent: 'center', paddingTop: '20px'}}>

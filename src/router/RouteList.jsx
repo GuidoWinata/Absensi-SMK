@@ -6,6 +6,7 @@ import Dashsiswa from '../pages/siswaPages/Dashsiswa';
 import { Riwayat } from '../pages/siswaPages/Riwayat';
 import Mainpages from '../layout/DashboardSiswa/Mainpages';
 import Siswaadmin from '../pages/adminPages/Siswaadmin';
+import { Izin } from '../layout/Izin/Izin';
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const routes = createBrowserRouter([
     children: [
       { path: '', element: <Dashsiswa /> },
       { path: 'dashboard', element: <Dashsiswa /> },
+      { path: 'izin', element: <Izin /> },
       { path: 'riwayat', element: <Riwayat /> }
     ],
   },

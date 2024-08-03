@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 
 
 export default function TableAbsen () {
@@ -11,7 +11,16 @@ export default function TableAbsen () {
     ];
 
   return (
-    <TableContainer component={Paper}>
+    <Box  sx={{ 
+      width: 'full', 
+      border: '1px', 
+      borderRadius: 2, 
+      p: 4,
+      pt: 0,
+      mb: 8,
+      boxShadow: '2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)',
+    }}>
+    <TableContainer component={Paper} sx={{ paddingTop:'20px', bgcolor: 'transparent' }}>
       <Table>
         <TableHead>
           <TableRow>
@@ -37,6 +46,7 @@ export default function TableAbsen () {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
   );
 };
 

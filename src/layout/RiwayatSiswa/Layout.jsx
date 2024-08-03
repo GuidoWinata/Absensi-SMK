@@ -85,10 +85,10 @@ export default function Layout() {
                     </AnimatedTableBox>
                 </Grid>
                 <AnimatedKalenderGrid item xs={4} sx={{ display: 'flex', height: '86.5%', width: '99%', border: '1px', flexDirection: 'column', borderRadius: 2, justifyContent: 'center', bgcolor: '#2D8EFF', boxShadow: '2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)' }}>
-                    <Grid sx={{ height: '100%' }}>
+                    <Grid sx={{ height: '70%' }}>
                         <Kalender />
                     </Grid>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', paddingBottom: '20px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', paddingBottom: '20px'}}>
                         <Box sx={{ width: '89%', height: '190px', bgcolor: 'white', padding: 2, boxSizing: 'border-box', borderRadius: '6px', border: '1px' }}>
                             <Typography variant="h6" sx={{ marginBottom: 2 }}>
                                 Catatan {formatDate(selectedDate) || 'Select a Date'}
