@@ -1,5 +1,5 @@
 import Logo from '/assets/Logo.svg';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, Tooltip, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
 
@@ -7,6 +7,7 @@ const setting = ['Profile', 'Logout'];
 export default function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [selectedButton, setSelectedButton] = React.useState(null);
+  const [selectedIzin, setSelectedIzin] = React.useState('Izin');
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -18,6 +19,18 @@ export default function Navbar() {
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
+    handleCloseUserMenu();
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (option) => {
+    setAnchorEl(null);
+    setSelectedButton(option);
   };
 
   return (
@@ -50,6 +63,27 @@ export default function Navbar() {
                 Riwayat
               </Button>
             </Link>
+            <div>
+              <Button
+                onClick={handleClick}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Izin' || selectedButton === 'Dispen' ? '#2D8EFF' : 'gray',
+                  borderBottom: selectedButton === 'Izin' || selectedButton === 'Dispen' ? '2px solid #2D8EFF' : '2px solid transparent',
+                  '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
+                }}
+              >
+                {selectedIzin}
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose(null)}
+              >
+                <Link to="/siswa/izin"><MenuItem onClick={() => handleClose('Izin')}>Izin</MenuItem></Link>
+                <Link><MenuItem onClick={() => handleClose('Dispen')}>Dispen</MenuItem></Link>
+              </Menu>
+            </div>
             <Button
               onClick={() => handleButtonClick('About')}
               sx={{

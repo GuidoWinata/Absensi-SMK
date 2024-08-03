@@ -29,7 +29,7 @@ export default function KotakTiga() {
             />
           ) : (
             <DateCalendar
-            sx={{ transform: 'scale(1.5)', bgcolor: 'white', mt: 15, borderRadius: '6px' }}
+            sx={{ transform: 'scale(1 .3)', bgcolor: 'white', mt: 10, borderRadius: '6px' }}
             onChange={handleDateChange}
           />
           )}
