@@ -1,5 +1,6 @@
 import { Box, Table, Typography, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Button } from '@mui/material';
 import { Autocomplete, Input } from '@mui/joy';
+import { CssVarsProvider, extendTheme } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
 import filter from '../../static/filter';
 import rows from '../../static/data';
@@ -17,6 +18,21 @@ export default function Kotak() {
   const endIndex = startIndex + rowsPerPage;
   const paginatedRows = rows.slice(startIndex, endIndex);
 
+  const theme = extendTheme({
+    components: {
+      JoyAutocomplete: {
+        defaultProps: {
+          variant: 'soft',
+        },
+      },
+      JoyInput: {
+        defaultProps: {
+          variant: 'soft',
+        },
+      },
+    },
+  });
+
   return (
     <>
       <Box
@@ -27,8 +43,10 @@ export default function Kotak() {
           height: 700,
         }}>
         <Box sx={{ display: 'flex', justifyContent: 'end', width: 'full', gap: 3 }}>
-          <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 47 }} />
-          <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
+          <CssVarsProvider theme={theme}>
+            <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 47 }} />
+            <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
+          </CssVarsProvider>
         </Box>
         <Box sx={{ px: 10, pt: 5, width: 'full', height: 550, borderRadius: 3, boxShadow: '0px 4px 10px 3px rgba(0, 0, 0, 0.1)', mt: 8 }}>
           <Typography sx={{ fontSize: '1.9rem', fontWeight: 'bold', color: '#373D3F' }}>Rekap Presensi Siswa</Typography>

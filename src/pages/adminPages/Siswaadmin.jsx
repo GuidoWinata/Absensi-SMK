@@ -1,6 +1,7 @@
 import { Box, Stack, TextField, TableBody, TableCell, TableContainer, TableHead, TableRow, Table, Paper, Button, Chip } from '@mui/material';
 import { Autocomplete, Input } from '@mui/joy';
 import React, { useState } from 'react';
+import { CssVarsProvider, extendTheme } from '@mui/joy';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -22,11 +23,28 @@ export default function Siswaadmin() {
   const endIndex = startIndex + rowsPerPage;
   const paginatedRows = rows.slice(startIndex, endIndex);
 
+  const theme = extendTheme({
+    components: {
+      JoyAutocomplete: {
+        defaultProps: {
+          variant: 'soft',
+        },
+      },
+      JoyInput: {
+        defaultProps: {
+          variant: 'soft',
+        },
+      },
+    },
+  });
+
   return (
     <>
       <Box sx={{ width: 'full', height: 900, mt: 10, px: 7 }}>
         <Stack direction="row" gap={3} justifyContent="end">
-          <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 55 }} />
+          <CssVarsProvider theme={theme}>
+            <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 55 }} />
+          </CssVarsProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Pilih Tanggal"
@@ -64,7 +82,9 @@ export default function Siswaadmin() {
               }}
             />
           </LocalizationProvider>
-          <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
+          <CssVarsProvider theme={theme}>
+            <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
+          </CssVarsProvider>
         </Stack>
         <TableContainer component={Paper} sx={{ mt: 4 }}>
           <Table sx={{ minWidth: 250 }}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import routes from './router/RouteList';
 import { RouterProvider } from 'react-router-dom';
+import routes from './router/RouteList';
 import './App.css';
 
 function App() {

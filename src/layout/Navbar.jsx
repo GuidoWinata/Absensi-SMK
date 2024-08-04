@@ -48,15 +48,17 @@ export default function Navbar() {
                 Siswa
               </Button>
             </Link>
-            <Button
-              onClick={() => handleButtonClick('Absensi')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'Absensi' ? '#2D8EFF' : 'gray',
-                '&:hover': { color: '#2D8EFF' },
-              }}>
-              Absensi
-            </Button>
+            <Link to="absensi">
+              <Button
+                onClick={() => handleButtonClick('Absensi')}
+                sx={{
+                  fontWeight: 'bold',
+                  color: selectedButton === 'Absensi' ? '#2D8EFF' : 'gray',
+                  '&:hover': { color: '#2D8EFF' },
+                }}>
+                Absensi
+              </Button>
+            </Link>
           </Box>
           <Box>
             <Tooltip title="Pengaturan">
