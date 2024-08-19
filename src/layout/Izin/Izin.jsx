@@ -38,7 +38,7 @@ export const Izin = () => {
                     onSubmit={handleSubmit}
                 >
                     <Typography variant="h5" component="h2" sx={{ textAlign: 'center'
-                    }}>Form Izin</Typography>
+                    }}>Form requestIzin</Typography>
                     <TextField
                         label="Nama"
                         variant="outlined"
