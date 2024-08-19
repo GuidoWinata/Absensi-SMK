@@ -81,10 +81,10 @@ export default function Navbar() {
                 onClose={() => handleClose(null)}
               >
                 <Link to="/siswa/izin"><MenuItem onClick={() => handleClose('Izin')}>Izin</MenuItem></Link>
-                <Link><MenuItem onClick={() => handleClose('Dispen')}>Dispen</MenuItem></Link>
+                <Link to="/siswa/dispen"><MenuItem onClick={() => handleClose('Dispen')}>Dispen</MenuItem></Link>
               </Menu>
             </div>
-            <Button
+            {/* <Button
               onClick={() => handleButtonClick('About')}
               sx={{
                 fontWeight: 'bold',
@@ -93,7 +93,7 @@ export default function Navbar() {
                 '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
               }}>
               About
-            </Button>
+            </Button> */}
           </Box>
           <Box>
             <Tooltip title="Pengaturan">

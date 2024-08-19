@@ -38,15 +38,27 @@ export default function Navbar() {
               </Button>
             </Link>
             <Link to="siswa">
+            <div>
               <Button
-                onClick={() => handleButtonClick('Siswa')}
+                onClick={handleClick}
                 sx={{
                   fontWeight: 'bold',
-                  color: selectedButton === 'Siswa' ? '#2D8EFF' : 'gray',
-                  '&:hover': { color: '#2D8EFF' },
-                }}>
-                Siswa
+                  color: selectedButton === 'Izin' || selectedButton === 'Dispen' ? '#2D8EFF' : 'gray',
+                  borderBottom: selectedButton === 'Izin' || selectedButton === 'Dispen' ? '2px solid #2D8EFF' : '2px solid transparent',
+                  '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
+                }}
+              >
+                {selectedIzin}
               </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose(null)}
+              >
+                <Link to="/siswa/izin"><MenuItem onClick={() => handleClose('Izin')}>Izin</MenuItem></Link>
+                <Link><MenuItem onClick={() => handleClose('Dispen')}>Dispen</MenuItem></Link>
+              </Menu>
+            </div>
             </Link>
             <Link to="absensi">
               <Button

@@ -26,10 +26,11 @@ export default function KotakTiga() {
                 },
               }}
               onChange={handleDateChange}
+              
             />
           ) : (
             <DateCalendar
-            sx={{ transform: 'scale(1 .3)', bgcolor: 'white', mt: 10, borderRadius: '6px' }}
+            sx={{ transform: 'scale(1 .3)', bgcolor: 'white', mt: 5, borderRadius: '6px' }}
             onChange={handleDateChange}
           />
           )}
