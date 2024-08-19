@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from '@emotion/react';
-import styled from '@emotion/styled';
-import { Box, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import Jam from './ComponentCard/Jam'; // Assuming Jam is your component
+import { keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
+import { Box, Typography } from "@mui/material";
+import Jam from "./ComponentCard/Jam"; // Assuming Jam is your component
+import client from "../../router/Client";
 
-import AccessTimeIcon from '@mui/icons-material/AccessTime'; // Import jam icon
+import AccessTimeIcon from "@mui/icons-material/AccessTime"; // Import jam icon
 
 const slideInDown = keyframes`
   from {
@@ -41,74 +42,183 @@ const CircleIcon = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${props => (props.size === 'large' ? '80px' : '60px')}; /* 4x for large, 3x for medium */
-  height: ${props => (props.size === 'large' ? '80px' : '60px')};
-  background-color: #2D8EFF;
-  animation: ${props => (props.left ? flyLeft : flyRight)} 2s infinite;
+  width: ${(props) =>
+    props.size === "large" ? "80px" : "60px"}; /* 4x for large, 3x for medium */
+  height: ${(props) => (props.size === "large" ? "80px" : "60px")};
+  background-color: #2d8eff;
+  animation: ${(props) => (props.left ? flyLeft : flyRight)} 2s infinite;
   animation-delay: 0.5s;
   svg {
     color: white;
-    font-size: ${props => (props.size === 'large' ? '40px' : '30px')};
+    font-size: ${(props) => (props.size === "large" ? "40px" : "30px")};
   }
+`;
+
+const AbsenButton = styled.button`
+  padding: 16px;
+  border-radius: 30px;
+  width: 300px;
+  height: 100px;
+  font-size: 24px;
+  background-color: ${(props) =>
+    props.absenStatus === "datang"
+      ? "#FFA500" // Warna oranye untuk status "Pulang"
+      : props.disabled
+      ? "#999999" // Warna abu-abu saat tombol dinonaktifkan
+      : "#1e88e5"}; // Warna biru untuk status "Datang"
+  color: white;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  transition: background-color 0.3s, cursor 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function Card() {
   const [isAbsen, setIsAbsen] = useState(true);
+  const [absenStatus, setAbsenStatus] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const handleButtonClick = () => {
-    setIsAbsen(!isAbsen);
+  useEffect(() => {
+    const savedStatus = localStorage.getItem("status");
+    const savedTime = localStorage.getItem("absenTime");
+
+    if (savedStatus && savedTime) {
+      const currentTime = new Date().getTime();
+      const timeDifference = currentTime - savedTime;
+      const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+      if (timeDifference > oneDayInMilliseconds) {
+        localStorage.removeItem("status");
+        localStorage.removeItem("absenTime");
+      } else {
+        setAbsenStatus(savedStatus);
+      }
+    }
+  }, []);
+
+  const handleAbsen = (e) => {
+    e.preventDefault();
+    setIsButtonDisabled(true);
+    const currentTime = new Date().getTime();
+
+    client
+      .post("absen")
+      .then(({ data }) => {
+        const absenStatus = data.message;
+        console.log(data);
+        if (absenStatus === "Berhasil Absen Datang") {
+          setIsAbsen(!isAbsen);
+          setAbsenStatus("datang");
+          localStorage.setItem("absenTime", currentTime);
+          localStorage.setItem("status", "datang");
+        } else if (absenStatus === "Berhasil Absen Pulang") {
+          setAbsenStatus("pulang");
+          localStorage.setItem("status", "pulang");
+          localStorage.setItem("absenTime", currentTime);
+        }
+      })
+      .catch((error) => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          const errorMessage = error.response.data.message;
+          console.error("Error Message:", errorMessage);
+          alert(`${errorMessage}`);
+        } else {
+          console.error("An unexpected error occurred:", error);
+          alert("An unexpected error occurred. Please try again.");
+        }
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsButtonDisabled(false);
+        }, 20000);
+      });
   };
 
   return (
-    <AnimatedCardBox sx={{ 
-      minHeight: '68vh',
-      mb: 8,
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center',
-    }}>
-      <CircleIcon sx={{ top: '10%', left: '10%' }} left size="large">
+    <AnimatedCardBox
+      sx={{
+        minHeight: "68vh",
+        mb: 8,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <CircleIcon sx={{ top: "10%", left: "10%" }} left size="large">
         <AccessTimeIcon />
       </CircleIcon>
-      <CircleIcon sx={{ top: '30%', left: '90%' }} size="large">
+      <CircleIcon sx={{ top: "30%", left: "90%" }} size="large">
         <AccessTimeIcon />
       </CircleIcon>
-      <CircleIcon sx={{ top: '50%', left: '15%' }} left size="medium">
+      <CircleIcon sx={{ top: "50%", left: "15%" }} left size="medium">
         <AccessTimeIcon />
       </CircleIcon>
-      <CircleIcon sx={{ top: '70%', left: '85%' }} size="medium">
+      <CircleIcon sx={{ top: "70%", left: "85%" }} size="medium">
         <AccessTimeIcon />
       </CircleIcon>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Box sx={{ display: 'flex' }}>
-          <Typography variant="h5" sx={{ mb: 0.9, paddingRight: '3px' }}>
-            Hi!  
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{ display: "flex" }}>
+          <Typography variant="h5" sx={{ mb: 0.9, paddingRight: "3px" }}>
+            Hi!
           </Typography>
-          <Typography variant="h5" sx={{ mb: 0.9 }} className="typing-animation">
-            Jean Samuel Putra
+          <Typography
+            variant="h5"
+            sx={{ mb: 0.9 }}
+            className="typing-animation"
+          >
+            {localStorage.getItem("nama")}
           </Typography>
         </Box>
         <Typography color="gray" variant="body1">
           Sudah absen blum?
         </Typography>
       </Box>
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        position: 'relative',
-        flexDirection: 'column'
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+          flexDirection: "column",
+        }}
+      >
         <Box>
           <Jam />
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: '4px' }}>
-          <button className={`px-4 py-2 rounded-[30px] ${isAbsen ? 'bg-blue-500 text-white' : 'bg-gray-500 text-white'} w-[300px] h-[100px] text-3xl`}
-            onClick={handleButtonClick}>
-            {isAbsen ? 'Datang' : 'Pulang'}
-          </button>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", paddingTop: "4px" }}
+        >
+          {absenStatus === "pulang" ||
+          localStorage.getItem("status") === "pulang" ? (
+            <div className="text-center text-xl text-green-600">
+              Anda sudah absen hari ini
+            </div>
+          ) : (
+            <AbsenButton
+              onClick={handleAbsen}
+              disabled={isButtonDisabled}
+              absenStatus={absenStatus}
+            >
+              {absenStatus === "datang" ||
+              localStorage.getItem("status") === "datang"
+                ? "Pulang"
+                : "Datang"}
+            </AbsenButton>
+          )}
         </Box>
-        <Typography sx={{display:'flex', justifyContent: 'center', paddingTop: '20px'}}>
+        <Typography
+          sx={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}
+        >
           Absen kamu akan disesuaikan dengan waktu yang tertera!
         </Typography>
       </Box>
