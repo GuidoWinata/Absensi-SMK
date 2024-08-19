@@ -31,6 +31,7 @@ export default function KotakTiga() {
                 },
               }}
               onChange={handleDateChange}
+              
             />
           ) : (
             <DateCalendar
@@ -42,7 +43,6 @@ export default function KotakTiga() {
               }}
               onChange={handleDateChange}
             />
-          )}
         </LocalizationProvider>
       </Grid>
     </Grid>

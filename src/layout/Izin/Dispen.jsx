@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, TextField, Radio, RadioGroup, FormControlLabel, Typography, FormControl, FormLabel, Button, Input, Grid } from '@mui/material';
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
-export const Izin = () => {
+export const Dispen = () => {
     const [name, setName] = useState('');
     const [nisn, setNisn] = useState('');
     const [description, setDescription] = useState('');
@@ -22,7 +22,6 @@ export const Izin = () => {
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     };
-
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
             <Grid sx={{ 
@@ -38,7 +37,7 @@ export const Izin = () => {
                     onSubmit={handleSubmit}
                 >
                     <Typography variant="h5" component="h2" sx={{ textAlign: 'center'
-                    }}>Form requestIzin</Typography>
+                    }}>Form Request Dispen</Typography>
                     <TextField
                         label="Nama"
                         variant="outlined"
@@ -53,18 +52,7 @@ export const Izin = () => {
                         onChange={(e) => setNisn(e.target.value)}
                         fullWidth
                     />
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">Keterangan</FormLabel>
-                        <RadioGroup
-                            aria-label="keterangan"
-                            name="keterangan"
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                        >
-                            <FormControlLabel value="Ijin" control={<Radio />} label="Ijin" />
-                            <FormControlLabel value="Sakit" control={<Radio />} label="Sakit" />
-                        </RadioGroup>
-                    </FormControl>
+                    
                     <TextField
                         label="Deskripsi"
                         variant="outlined"
@@ -74,11 +62,20 @@ export const Izin = () => {
                         multiline
                         minRows={6}
                     />
-                    <Box sx={{display:'flex'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <FormLabel component="legend">Lampiran</FormLabel>
-                        <Button>
-                            <UploadFileIcon />
-                        </Button>
+                        <input
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            id="upload-file"
+                            type="file"
+                            onChange={handleFileChange}
+                        />
+                        <label htmlFor="upload-file">
+                            <Button component="span">
+                                <UploadFileIcon />
+                            </Button>
+                        </label>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
                         <Button type="submit" variant="contained" color="primary">
@@ -91,4 +88,4 @@ export const Izin = () => {
     );
 };
 
-export default Izin;
+export default Dispen;

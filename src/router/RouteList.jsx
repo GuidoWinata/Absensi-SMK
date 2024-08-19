@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashadmin from "../pages/adminPages/Dashadmin";
@@ -37,10 +38,11 @@ const routes = createBrowserRouter([
     path: "/siswa",
     element: <SiswaGuardSkin />,
     children: [
-      { path: "", element: <Dashsiswa /> },
-      { path: "dashboard", element: <Dashsiswa /> },
-      { path: "riwayat", element: <Riwayat /> },
-      { path: "izin", element: <Izin /> },
+      { path: '', element: <Dashsiswa /> },
+      { path: 'dashboard', element: <Dashsiswa /> },
+      { path: 'izin', element: <Izin /> },
+      { path: 'riwayat', element: <Riwayat /> }
+
     ],
   },
 ]);
