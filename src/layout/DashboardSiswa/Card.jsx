@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from "@emotion/react";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Box, Grid, Typography } from "@mui/material";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";

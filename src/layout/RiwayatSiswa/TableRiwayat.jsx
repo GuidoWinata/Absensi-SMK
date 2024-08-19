@@ -1,42 +1,161 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
+import client from "../../router/Client";
 
-export default function TableRiwayat () {
-    const data = [
-      { hari: 'Senin', tanggal: '2024-07-22', absen: '08:00', pulang: '17:00', keterangan: 'Hadir', sia: '-' },
-      { hari: 'Selasa', tanggal: '2024-07-23', absen: '08:10', pulang: '17:05', keterangan: 'Terlambat', sia: '-' },
-      { hari: 'Rabu', tanggal: '2024-07-24', absen: '-', pulang: '-', keterangan: 'Sakit', sia: 'S' },
-      { hari: 'Rabu', tanggal: '2024-07-24', absen: '-', pulang: '-', keterangan: 'Sakit', sia: 'S' },
-      { hari: 'Rabu', tanggal: '2024-07-24', absen: '-', pulang: '-', keterangan: 'Sakit', sia: 'S' },
-      // Tambahkan data lainnya sesuai kebutuhan
-    ];
+export default function TableRiwayat({ selectedDate }) {
+  const [dataRiwayat, setDataRiwayat] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Menentukan tanggal default jika selectedDate tidak ada
+  const defaultDate = new Date().toISOString().split("T")[0]; // Format YYYY-MM-DD
+
+  useEffect(() => {
+    const dateToFetch = selectedDate || defaultDate; // Menggunakan selectedDate jika ada, jika tidak, gunakan defaultDate
+
+    if (!dateToFetch) return; // Jika tanggal tidak valid, hentikan eksekusi
+
+    setLoading(true);
+
+    // Fetch data berdasarkan tanggal yang dipilih atau default
+    client
+      .get(`absen?date=${dateToFetch}`)
+      .then(({ data }) => {
+        const updatedData = data.data.map((item) => {
+          const dateObj = new Date(item.tanggal);
+          const days = [
+            "Minggu",
+            "Senin",
+            "Selasa",
+            "Rabu",
+            "Kamis",
+            "Jumat",
+            "Sabtu",
+          ];
+          const dayName = days[dateObj.getDay()];
+
+          const waktuDatangFormatted = item.waktu_datang
+            ? item.waktu_datang.substring(11, 16)
+            : "Belum Absen";
+
+          const waktuPulangFormatted = item.waktu_pulang
+            ? item.waktu_pulang.substring(11, 16)
+            : "Belum Pulang";
+
+          return {
+            ...item,
+            hari: dayName,
+            tanggal: dateObj.toLocaleDateString("id-ID"),
+            waktu_datang: waktuDatangFormatted,
+            waktu_pulang: waktuPulangFormatted,
+          };
+        });
+
+        setDataRiwayat(updatedData);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError("Gagal memuat data. Silakan coba lagi.");
+        setLoading(false);
+      });
+  }, [selectedDate, defaultDate]); // Tambahkan defaultDate ke dependency array
 
   return (
-    <TableContainer component={Paper} sx={{ width: '100%', marginTop: 0, height: 300 }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>Hari</TableCell>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>Tanggal</TableCell>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>Absen</TableCell>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>Pulang</TableCell>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>S/I/A</TableCell>
-            <TableCell sx={{ backgroundColor: '#ADD8E6', position: 'sticky', top: 0, zIndex: 1 }}>Keterangan</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell>{row.hari}</TableCell>
-              <TableCell>{row.tanggal}</TableCell>
-              <TableCell>{row.absen}</TableCell>
-              <TableCell>{row.pulang}</TableCell>
-              <TableCell>{row.sia}</TableCell>
-              <TableCell>{row.keterangan}</TableCell>
+    <TableContainer
+      component={Paper}
+      sx={{ width: "100%", marginTop: 0, height: 300 }}
+    >
+      {loading ? (
+        <Typography variant="h6" sx={{ textAlign: "center", padding: 2 }}>
+          Memuat data...
+        </Typography>
+      ) : error ? (
+        <Typography variant="h6" sx={{ textAlign: "center", padding: 2 }}>
+          {error}
+        </Typography>
+      ) : dataRiwayat.length === 0 ? (
+        <Typography variant="h6" sx={{ textAlign: "center", padding: 2 }}>
+          Data riwayat kosong
+        </Typography>
+      ) : (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{
+                  backgroundColor: "#ADD8E6",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
+                Hari
+              </TableCell>
+              <TableCell
+                sx={{
+                  backgroundColor: "#ADD8E6",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
+                Tanggal
+              </TableCell>
+              <TableCell
+                sx={{
+                  backgroundColor: "#ADD8E6",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
+                Absen
+              </TableCell>
+              <TableCell
+                sx={{
+                  backgroundColor: "#ADD8E6",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
+                Pulang
+              </TableCell>
+              <TableCell
+                sx={{
+                  backgroundColor: "#ADD8E6",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
+                Keterangan
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {dataRiwayat.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell>{row.hari}</TableCell>
+                <TableCell>{row.tanggal}</TableCell>
+                <TableCell>{row.waktu_datang}</TableCell>
+                <TableCell>{row.waktu_pulang}</TableCell>
+                <TableCell>{row.keterangan}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </TableContainer>
   );
-};
+}

@@ -80,20 +80,37 @@ export default function Card() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
-    const savedStatus = localStorage.getItem("status");
-    const savedTime = localStorage.getItem("absenTime");
+    const clearLocalStorageAt5AM = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
 
-    if (savedStatus && savedTime) {
-      const currentTime = new Date().getTime();
-      const timeDifference = currentTime - savedTime;
-      const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-      if (timeDifference > oneDayInMilliseconds) {
+      if (hours === 5 && minutes === 0) {
         localStorage.removeItem("status");
         localStorage.removeItem("absenTime");
-      } else {
+      }
+    };
+
+    // Cek status absen saat ini
+    const checkAbsenStatus = () => {
+      const savedStatus = localStorage.getItem("status");
+      const savedTime = localStorage.getItem("absenTime");
+
+      if (savedStatus && savedTime) {
         setAbsenStatus(savedStatus);
       }
-    }
+    };
+
+    // Cek status saat komponen dimuat
+    checkAbsenStatus();
+
+    // Set interval untuk memeriksa setiap menit
+    const intervalId = setInterval(() => {
+      clearLocalStorageAt5AM();
+    }, 60000); // Cek setiap menit
+
+    // Hapus interval saat komponen tidak digunakan
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleAbsen = (e) => {
