@@ -6,7 +6,7 @@ import { DateCalendar, DatePicker } from "@mui/x-date-pickers";
 import { TanggalContext } from "./TanggalPIlih";
 
 export default function KotakTiga() {
-  const { setSelectedDate } = useContext(TanggalContext);
+  const { selectedDate, setSelectedDate } = useContext(TanggalContext);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const handleDateChange = (date) => {
@@ -25,24 +25,26 @@ export default function KotakTiga() {
           {isMobile ? (
             <DatePicker
               label="Pilih tanggal"
+              value={selectedDate || null}
               slotProps={{
                 textField: {
                   helperText: "MM/DD/YYYY",
                 },
               }}
               onChange={handleDateChange}
-              
             />
           ) : (
             <DateCalendar
+              value={selectedDate || null}
               sx={{
-                transform: "scale(1 .3)",
+                transform: "scale(1.3)",
                 bgcolor: "white",
                 mt: 10,
                 borderRadius: "6px",
               }}
               onChange={handleDateChange}
             />
+          )}
         </LocalizationProvider>
       </Grid>
     </Grid>

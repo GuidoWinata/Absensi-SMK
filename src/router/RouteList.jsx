@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashadmin from "../pages/adminPages/Dashadmin";
@@ -12,6 +11,7 @@ import SiswaGuardSkin from "../Skins/SiswaGuardSkin";
 import AdminGuardSkin from "../Skins/AdminGuardSkin";
 import GuestSkin from "../Skins/GuestSkin";
 import Izin from "../layout/Izin/Izin";
+import Dispen from "../layout/Izin/Dispen";
 
 const routes = createBrowserRouter([
   {
@@ -38,11 +38,11 @@ const routes = createBrowserRouter([
     path: "/siswa",
     element: <SiswaGuardSkin />,
     children: [
-      { path: '', element: <Dashsiswa /> },
-      { path: 'dashboard', element: <Dashsiswa /> },
-      { path: 'izin', element: <Izin /> },
-      { path: 'riwayat', element: <Riwayat /> }
-
+      { path: "", element: <Dashsiswa /> },
+      { path: "dashboard", element: <Dashsiswa /> },
+      { path: "izin", element: <Izin /> },
+      { path: "dispen", element: <Dispen /> },
+      { path: "riwayat", element: <Riwayat /> },
     ],
   },
 ]);

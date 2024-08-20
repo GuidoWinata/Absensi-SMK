@@ -136,7 +136,7 @@ export default function SiswaGuardSkin() {
                 <Link to="/siswa/izin">
                   <MenuItem onClick={() => handleClose("Izin")}>Izin</MenuItem>
                 </Link>
-                <Link>
+                <Link to="/siswa/dispen">
                   <MenuItem onClick={() => handleClose("Dispen")}>
                     Dispen
                   </MenuItem>
