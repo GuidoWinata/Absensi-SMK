@@ -12,6 +12,7 @@ import AdminGuardSkin from "../Skins/AdminGuardSkin";
 import GuestSkin from "../Skins/GuestSkin";
 import Izin from "../layout/Izin/Izin";
 import Dispen from "../layout/Izin/Dispen";
+import { DataSiswa } from "../layout/SiswaAdmin/DataSiswa";
 
 const routes = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const routes = createBrowserRouter([
       { path: "", element: <Dashadmin /> },
       { path: "dashboard", element: <Dashadmin /> },
       { path: "siswa", element: <Siswaadmin /> },
+      { path: "data-siswa", element: <DataSiswa /> },
       { path: "absensi", element: <Absensimin /> },
     ],
   },
