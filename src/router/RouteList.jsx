@@ -13,6 +13,7 @@ import GuestSkin from "../Skins/GuestSkin";
 import Izin from "../layout/Izin/Izin";
 import Dispen from "../layout/Izin/Dispen";
 import { DataSiswa } from "../layout/SiswaAdmin/DataSiswa";
+import { Page } from "../layout/About/Page";
 
 const routes = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const routes = createBrowserRouter([
       { path: "izin", element: <Izin /> },
       { path: "dispen", element: <Dispen /> },
       { path: "riwayat", element: <Riwayat /> },
+      { path: "about", element: <Page /> },
     ],
   },
 ]);
