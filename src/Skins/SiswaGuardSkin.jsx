@@ -143,23 +143,25 @@ export default function SiswaGuardSkin() {
                 </Link>
               </Menu>
             </div>
-            <Button
-              onClick={() => handleButtonClick("About")}
-              sx={{
-                fontWeight: "bold",
-                color: selectedButton === "About" ? "#2D8EFF" : "gray",
-                borderBottom:
-                  selectedButton === "About"
-                    ? "2px solid #2D8EFF"
-                    : "2px solid transparent",
-                "&:hover": {
-                  color: "#2D8EFF",
-                  borderBottom: "2px solid #2D8EFF",
-                },
-              }}
-            >
-              About
-            </Button>
+            <Link to="/siswa/about">
+              <Button
+                onClick={() => handleButtonClick("About")}
+                sx={{
+                  fontWeight: "bold",
+                  color: selectedButton === "About" ? "#2D8EFF" : "gray",
+                  borderBottom:
+                    selectedButton === "About"
+                      ? "2px solid #2D8EFF"
+                      : "2px solid transparent",
+                  "&:hover": {
+                    color: "#2D8EFF",
+                    borderBottom: "2px solid #2D8EFF",
+                  },
+                }}
+              >
+                About
+              </Button>
+            </Link>
           </Box>
           <Box>
             <Tooltip title="Pengaturan">

@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar position="static" color="inherit" sx={{ px: 5, borderRadius: '0 0 50px 50px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <AppBar position="static" color="inherit" sx={{ px: 5, borderRadius: '0 0 50px 50px' }}>
         <Toolbar sx={{ justifyContent: 'space-between', height: 90 }}>
           <img src={Logo} alt="Logos" />
           <Box sx={{ display: 'flex', gap: 4 }}>
