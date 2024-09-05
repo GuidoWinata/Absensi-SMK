@@ -67,7 +67,7 @@ const ChartComponent = () => {
           justifyContent: 'center'
         }}
       >
-        <Box sx={{ px: 10, pt: 5, width: '95%', height: '80%', borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8 }}>
+        <Box sx={{ px: 10, pt: 5, width: '95%', height: '80%', borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8, bgcolor:'white' }}>
             <Typography sx={{ fontSize: '1.9rem', fontWeight: 'bold', color: '#373D3F' }}>Bagan Harian Presensi</Typography>
             <Box sx={{height:'90%'}}>
             <canvas ref={chartRef} style={{
