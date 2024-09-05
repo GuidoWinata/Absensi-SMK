@@ -1,4 +1,3 @@
-import Logo from "/assets/Logo.svg";
 import React from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import {
@@ -14,10 +13,11 @@ import {
   MenuItem,
 } from "@mui/material";
 import client from "../router/Client";
+import Logo from "/assets/Logo.svg";
 
-// const setting = ["Profile", "Logout"];
 export default function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElSiswa, setAnchorElSiswa] = React.useState(null);
   const [selectedButton, setSelectedButton] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -26,6 +26,14 @@ export default function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleOpenSiswaMenu = (event) => {
+    setAnchorElSiswa(event.currentTarget);
+  };
+
+  const handleCloseSiswaMenu = () => {
+    setAnchorElSiswa(null);
   };
 
   const handleButtonClick = (buttonName) => {
@@ -51,11 +59,12 @@ export default function Navbar() {
         sx={{
           px: 5,
           borderRadius: "0 0 50px 50px",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "none",
+          background: 'transparent'
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between", height: 90 }}>
-          <img src={Logo} alt="Logos" />
+          <img src={Logo} alt="Logo" />
           <Box sx={{ display: "flex", gap: 4 }}>
             <Link to="dashboard">
               <Button
@@ -69,18 +78,43 @@ export default function Navbar() {
                 Dashboard
               </Button>
             </Link>
-            <Link to="siswa">
-              <Button
-                onClick={() => handleButtonClick("Siswa")}
-                sx={{
-                  fontWeight: "bold",
-                  color: selectedButton === "Siswa" ? "#2D8EFF" : "gray",
-                  "&:hover": { color: "#2D8EFF" },
+            <Button
+              onClick={handleOpenSiswaMenu}
+              sx={{
+                fontWeight: "bold",
+                color: selectedButton === "Siswa" ? "#2D8EFF" : "gray",
+                "&:hover": { color: "#2D8EFF" },
+              }}
+            >
+              Siswa
+            </Button>
+            <Menu
+              anchorEl={anchorElSiswa}
+              open={Boolean(anchorElSiswa)}
+              onClose={handleCloseSiswaMenu}
+              sx={{ mt: 2 }}
+            >
+              <MenuItem
+                component={Link}
+                to="siswa"
+                onClick={() => {
+                  handleCloseSiswaMenu();
+                  handleButtonClick("Siswa");
                 }}
               >
                 Siswa
-              </Button>
-            </Link>
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="data-siswa"
+                onClick={() => {
+                  handleCloseSiswaMenu();
+                  handleButtonClick("DataSiswa");
+                }}
+              >
+                Data Siswa
+              </MenuItem>
+            </Menu>
             <Link to="absensi">
               <Button
                 onClick={() => handleButtonClick("Absensi")}

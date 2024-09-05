@@ -2,13 +2,14 @@ import { Box, Grid, Table, Typography, TableBody, TableCell, TableContainer, Tab
 import { Autocomplete, Input } from '@mui/joy';
 import { CssVarsProvider, extendTheme } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
-import filter from '../../static/filter';
-import rows from '../../static/data';
+import filter from '../../../static/filter';
+import rows from '../../../static/data';
 import { React, useState, useRef } from 'react';
 import Slider from 'react-slick';
 import ChartComponent from './ChartComponent';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export default function Kotak() {
   const [page, setPage] = useState(0);
@@ -40,7 +41,7 @@ export default function Kotak() {
   const sliderRef = useRef(null);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -56,6 +57,12 @@ export default function Kotak() {
     sliderRef.current.slickNext();
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      onFileUpload(file);
+    }
+  };
   return (
     <>
      <Box sx={{ width: '100%', position: 'relative' }}>
@@ -71,12 +78,9 @@ export default function Kotak() {
                   display: 'flex',
                   justifyContent:'center'
                 }}>
-                <Box sx={{ px: 10, pt: 5, width: '95%', height: 550, borderRadius: 3, bgcolor:'white', boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8 }}>
+                <Box sx={{ px: 10, pt: 5, width: '95%', height: 550, borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8, bgcolor: 'white' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'end', width: 'full', gap: 3 }}>
-                  <CssVarsProvider theme={theme}>
-                    <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 47 }} />
-                    <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
-                  </CssVarsProvider>
+                  
                 </Box>
                   <Typography sx={{ fontSize: '1.9rem', fontWeight: 'bold', color: '#373D3F' }}>Rekap Presensi Siswa</Typography>
                   <TableContainer component={Paper} sx={{ mt: 4 }}>
@@ -159,6 +163,22 @@ export default function Kotak() {
         <ArrowForwardIosIcon />
       </IconButton>
         </Box> 
+        <Box sx={{ display: 'flex', justifyContent: 'end', mt: 0, paddingBottom: 10}}>
+            <Button
+                variant="contained"
+                component="label"
+                startIcon={<UploadFileIcon />}
+                sx={{ textTransform: 'none', backgroundColor: '#4caf50' }}
+                >
+                Export Excel
+                <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    hidden
+                    onChange={handleFileChange}
+                />
+            </Button>       
+        </Box>
     </>
   );
 }

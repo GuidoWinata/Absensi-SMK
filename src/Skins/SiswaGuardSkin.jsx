@@ -63,7 +63,8 @@ export default function SiswaGuardSkin() {
         sx={{
           px: 5,
           borderRadius: "0 0 50px 50px",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "none",
+          background: 'transparent'
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between", height: 90 }}>
@@ -143,23 +144,25 @@ export default function SiswaGuardSkin() {
                 </Link>
               </Menu>
             </div>
-            <Button
-              onClick={() => handleButtonClick("About")}
-              sx={{
-                fontWeight: "bold",
-                color: selectedButton === "About" ? "#2D8EFF" : "gray",
-                borderBottom:
-                  selectedButton === "About"
-                    ? "2px solid #2D8EFF"
-                    : "2px solid transparent",
-                "&:hover": {
-                  color: "#2D8EFF",
-                  borderBottom: "2px solid #2D8EFF",
-                },
-              }}
-            >
-              About
-            </Button>
+            <Link to="/siswa/about">
+              <Button
+                onClick={() => handleButtonClick("About")}
+                sx={{
+                  fontWeight: "bold",
+                  color: selectedButton === "About" ? "#2D8EFF" : "gray",
+                  borderBottom:
+                    selectedButton === "About"
+                      ? "2px solid #2D8EFF"
+                      : "2px solid transparent",
+                  "&:hover": {
+                    color: "#2D8EFF",
+                    borderBottom: "2px solid #2D8EFF",
+                  },
+                }}
+              >
+                About
+              </Button>
+            </Link>
           </Box>
           <Box>
             <Tooltip title="Pengaturan">

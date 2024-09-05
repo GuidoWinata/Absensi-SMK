@@ -33,9 +33,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   19 Siswa
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
-                  Total Presensi
-                </Typography>
+               
                 </Box>
                   <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                     <CircularProgress
@@ -54,7 +52,7 @@ export default function Card() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginBottom: 1
+                        marginBottom: 0
                       }}
                     >
                       <Typography
@@ -91,9 +89,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   19 Siswa
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
-                  Hari ini
-                </Typography>
+                
                 </Box>
                   <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                     <CircularProgress
@@ -113,7 +109,7 @@ export default function Card() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginBottom: 1
+                        marginBottom: 0
                       }}
                     >
                       <Typography
@@ -150,9 +146,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   19 Siswa
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
-                  Hari ini
-                </Typography>
+                
                 </Box>
                   <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                     <CircularProgress
@@ -172,7 +166,7 @@ export default function Card() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginBottom: 1
+                        marginBottom: 0
                       }}
                     >
                       <Typography
@@ -209,9 +203,7 @@ export default function Card() {
                 <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                   19 Siswa
                 </Typography>
-                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
-                 Hari ini
-                </Typography>
+                
                 </Box>
                   <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                     <CircularProgress
@@ -231,7 +223,7 @@ export default function Card() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        marginBottom: 1
+                        marginBottom: 0
                       }}
                     >
                       <Typography
