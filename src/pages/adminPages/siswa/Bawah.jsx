@@ -78,7 +78,7 @@ export default function Kotak() {
                   display: 'flex',
                   justifyContent:'center'
                 }}>
-                <Box sx={{ px: 10, pt: 5, width: '95%', height: 550, borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8 }}>
+                <Box sx={{ px: 10, pt: 5, width: '95%', height: 550, borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8, bgcolor: 'white' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'end', width: 'full', gap: 3 }}>
                   
                 </Box>
