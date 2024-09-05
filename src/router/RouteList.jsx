@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashadmin from "../pages/adminPages/Dashadmin";
-import Mainpage from "../pages/Mainpage";
 import Dashsiswa from "../pages/siswaPages/Dashsiswa";
 import { Riwayat } from "../pages/siswaPages/Riwayat";
-import Mainpages from "../layout/DashboardSiswa/Mainpages";
 import Absensimin from "../pages/adminPages/Absensimin";
 import Siswaadmin from "../pages/adminPages/Siswaadmin";
 import SiswaGuardSkin from "../Skins/SiswaGuardSkin";

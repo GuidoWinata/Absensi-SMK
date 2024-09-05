@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
@@ -9,30 +9,59 @@ import {
   FormControl,
   FormLabel,
   Button,
-  Input,
   Grid,
+  Alert,
 } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import client from "../../router/Client";
 
 export const Izin = () => {
-  const [name, setName] = useState("");
-  const [nisn, setNisn] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Ijin");
+  const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState({
+    keterangan: "",
+    deskripsi: "",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Name:", name);
-    console.log("NISN:", nisn);
-    console.log("Description:", description);
-    console.log("Status:", status);
-    console.log("Selected file:", file ? file.name : "No file selected");
-    // Lakukan tindakan lain seperti mengirim data ke server
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("keterangan", formData.keterangan);
+    formDataToSend.append("deskripsi", formData.deskripsi);
+    if (file) {
+      formDataToSend.append("image", file);
+    }
+
+    client
+      .post("izin", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        setMessage("Berhasil mengajukan izin, tunggu konfirmasi guru");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error Response Data: ", error.response.data);
+          setMessage("Terjadi kesalahan: " + error.response.data.message);
+        } else {
+          console.error("Error: ", error);
+          setMessage("Terjadi kesalahan");
+        }
+      });
   };
 
   return (
@@ -59,33 +88,19 @@ export const Izin = () => {
           onSubmit={handleSubmit}
         >
           <Typography variant="h5" component="h2" sx={{ textAlign: "center" }}>
-            Form request Izin
+            Form Request Izin
           </Typography>
-          <TextField
-            label="Nama"
-            variant="outlined"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="NISN"
-            variant="outlined"
-            value={nisn}
-            onChange={(e) => setNisn(e.target.value)}
-            fullWidth
-          />
           <FormControl component="fieldset">
             <FormLabel component="legend">Keterangan</FormLabel>
             <RadioGroup
               aria-label="keterangan"
               name="keterangan"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              value={formData.keterangan}
+              onChange={handleChange}
             >
-              <FormControlLabel value="Ijin" control={<Radio />} label="Ijin" />
+              <FormControlLabel value="izin" control={<Radio />} label="Izin" />
               <FormControlLabel
-                value="Sakit"
+                value="sakit"
                 control={<Radio />}
                 label="Sakit"
               />
@@ -94,8 +109,9 @@ export const Izin = () => {
           <TextField
             label="Deskripsi"
             variant="outlined"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="deskripsi"
+            value={formData.deskripsi}
+            onChange={handleChange}
             fullWidth
             multiline
             minRows={6}
@@ -120,6 +136,11 @@ export const Izin = () => {
               Submit
             </Button>
           </Box>
+          {message && (
+            <Alert severity="info" sx={{ marginTop: 2 }}>
+              {message}
+            </Alert>
+          )}
         </Box>
       </Grid>
     </Box>

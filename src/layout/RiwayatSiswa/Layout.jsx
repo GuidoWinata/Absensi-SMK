@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from "@emotion/react";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import {
   Grid,
@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import TableRiwayat from "./TableRiwayat";
 import Card from "./Card";
 import Kalender from "./Kalender";
