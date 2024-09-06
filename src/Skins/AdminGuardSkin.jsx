@@ -72,7 +72,14 @@ export default function Navbar() {
                 sx={{
                   fontWeight: "bold",
                   color: selectedButton === "Dashboard" ? "#2D8EFF" : "gray",
-                  "&:hover": { color: "#2D8EFF" },
+                  borderBottom:
+                  selectedButton === "Dashboard"
+                    ? "2px solid #2D8EFF"
+                    : "2px solid transparent",
+                "&:hover": {
+                  color: "#2D8EFF",
+                  borderBottom: "2px solid #2D8EFF",
+                },
                 }}
               >
                 Dashboard
@@ -83,7 +90,14 @@ export default function Navbar() {
               sx={{
                 fontWeight: "bold",
                 color: selectedButton === "Siswa" ? "#2D8EFF" : "gray",
-                "&:hover": { color: "#2D8EFF" },
+                borderBottom:
+                selectedButton === "Siswa"
+                  ? "2px solid #2D8EFF"
+                  : "2px solid transparent",
+              "&:hover": {
+                color: "#2D8EFF",
+                borderBottom: "2px solid #2D8EFF",
+              },
               }}
             >
               Siswa
@@ -102,7 +116,7 @@ export default function Navbar() {
                   handleButtonClick("Siswa");
                 }}
               >
-                Siswa
+                Rekap
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -121,7 +135,14 @@ export default function Navbar() {
                 sx={{
                   fontWeight: "bold",
                   color: selectedButton === "Absensi" ? "#2D8EFF" : "gray",
-                  "&:hover": { color: "#2D8EFF" },
+                  borderBottom:
+                  selectedButton === "Absensi"
+                    ? "2px solid #2D8EFF"
+                    : "2px solid transparent",
+                "&:hover": {
+                  color: "#2D8EFF",
+                  borderBottom: "2px solid #2D8EFF",
+                },
                 }}
               >
                 Absensi
