@@ -60,15 +60,28 @@ const handleSignInClick = () => {
         <div className="forms-container">
           <div className="signin-signup">
             {/* Sign In Form */}
-            <form action="#" className="sign-in-form">
+            <form onSubmit={handleSubmit} className="sign-in-form">
               <h2 className="title">Sign in</h2>
               <div className="input-field">
                 <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" ref={inputEmail}/>
               </div>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
+                <input placeholder="Masukkan password anda"
+                  type={showPassword ? "text" : "password"}
+                  ref={inputPassword}/>
+                  <button
+                  type="button"
+                  className="absolute lg:translate-y-[75%] translate-y-[60%] right-5"
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEye : faEyeSlash}
+                    className="lg:text-xl text-lg text-[#5A6A85] "
+                  />
+                </button>
+
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>
@@ -137,7 +150,7 @@ const handleSignInClick = () => {
                 Sign up
               </button>
             </div>
-            <img src="img/log.svg" className="image" alt="log illustration" />
+            <img src="/assets/log.svg" className="image" alt="log illustration" />
           </div>
 
           {/* Right Panel */}
@@ -152,7 +165,7 @@ const handleSignInClick = () => {
                 Sign in
               </button>
             </div>
-            <img src="img/register.svg" className="image" alt="register illustration" />
+            <img src="/assets/register.svg" className="image" alt="register illustration" />
           </div>
         </div>
       </div>
