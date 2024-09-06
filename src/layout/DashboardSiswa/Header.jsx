@@ -7,29 +7,31 @@ import Jam from "./ComponentCard/Jam"; // Assuming Jam is your component
 import client from "../../router/Client";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime"; // Import jam icon
+import LoadingSpin from "../../components/LoadingSpin";
+import AlertMessage from "../../components/Alert";
 
 const slideInDown = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `;
 
 const flyLeft = keyframes`
-  0% { transform: translateX(0); opacity: 0; }
-  50% { transform: translateX(-20px); opacity: 1; }
-  100% { transform: translateX(0); opacity: 0; }
-`;
+    0% { transform: translateX(0); opacity: 0; }
+    50% { transform: translateX(-20px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0; }
+  `;
 
 const flyRight = keyframes`
-  0% { transform: translateX(0); opacity: 0; }
-  50% { transform: translateX(20px); opacity: 1; }
-  100% { transform: translateX(0); opacity: 0; }
-`;
+    0% { transform: translateX(0); opacity: 0; }
+    50% { transform: translateX(20px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0; }
+  `;
 
 const AnimatedCardBox = styled(Box)`
   animation: ${slideInDown} 0.5s ease-out;
@@ -75,85 +77,58 @@ const AbsenButton = styled.button`
 `;
 
 export default function Card() {
-  const [isAbsen, setIsAbsen] = useState(true);
+  const [absenMessage, setAbsenMessage] = useState("");
   const [absenStatus, setAbsenStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const handleAlertClose = () => {
+    setOpenAlert(false);
+    setErrorMessage("");
+    setAbsenMessage("");
+  };
 
   useEffect(() => {
-    const clearLocalStorageAt5AM = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-
-      if (hours === 5 && minutes === 0) {
-        localStorage.removeItem("status");
-        localStorage.removeItem("absenTime");
-      }
-    };
-
-    // Cek status absen saat ini
-    const checkAbsenStatus = () => {
-      const savedStatus = localStorage.getItem("status");
-      const savedTime = localStorage.getItem("absenTime");
-
-      if (savedStatus && savedTime) {
-        setAbsenStatus(savedStatus);
-      }
-    };
-
-    // Cek status saat komponen dimuat
-    checkAbsenStatus();
-
-    // Set interval untuk memeriksa setiap menit
-    const intervalId = setInterval(() => {
-      clearLocalStorageAt5AM();
-    }, 60000); // Cek setiap menit
-
-    // Hapus interval saat komponen tidak digunakan
-    return () => clearInterval(intervalId);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  const handleAbsen = (e) => {
-    e.preventDefault();
+  const handleAbsen = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
     setIsButtonDisabled(true);
-    const currentTime = new Date().getTime();
 
     client
       .post("absen")
       .then(({ data }) => {
-        const absenStatus = data.message;
-        console.log(data);
-        if (absenStatus === "Berhasil Absen Datang") {
-          setIsAbsen(!isAbsen);
-          setAbsenStatus("datang");
-          localStorage.setItem("absenTime", currentTime);
-          localStorage.setItem("status", "datang");
-        } else if (absenStatus === "Berhasil Absen Pulang") {
-          setAbsenStatus("pulang");
-          localStorage.setItem("status", "pulang");
-          localStorage.setItem("absenTime", currentTime);
-        }
+        setAbsenStatus(data.status);
+        setAbsenMessage(data.message);
+        setErrorMessage("");
+        setOpenAlert(true);
       })
       .catch((error) => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          const errorMessage = error.response.data.message;
-          console.error("Error Message:", errorMessage);
-          alert(`${errorMessage}`);
-        } else {
-          console.error("An unexpected error occurred:", error);
-          alert("An unexpected error occurred. Please try again.");
-        }
+        setErrorMessage(error.response.data.message);
+        setOpenAlert(true);
       })
       .finally(() => {
         setTimeout(() => {
+          setIsLoading(false);
           setIsButtonDisabled(false);
-        }, 20000);
+        }, 800);
       });
   };
+
+  useEffect(() => {
+    if (!isLoading) {
+      client.get("check").then(({ data }) => {
+        setAbsenStatus(data.status);
+      });
+    }
+  }, [isLoading]);
 
   return (
     <AnimatedCardBox
@@ -165,42 +140,7 @@ export default function Card() {
         alignItems: "center",
       }}
     >
-      <CircleIcon sx={{ top: "10%", left: "10%" }} left size="large">
-        <AccessTimeIcon />
-      </CircleIcon>
-      <CircleIcon sx={{ top: "30%", left: "90%" }} size="large">
-        <AccessTimeIcon />
-      </CircleIcon>
-      <CircleIcon sx={{ top: "50%", left: "15%" }} left size="medium">
-        <AccessTimeIcon />
-      </CircleIcon>
-      <CircleIcon sx={{ top: "70%", left: "85%" }} size="medium">
-        <AccessTimeIcon />
-      </CircleIcon>
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Box sx={{ display: "flex" }}>
-          <Typography variant="h5" sx={{ mb: 0.9, paddingRight: "3px" }}>
-            Hi!
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{ mb: 0.9 }}
-            className="typing-animation"
-          >
-            {localStorage.getItem("nama")}
-          </Typography>
-        </Box>
-        <Typography color="gray" variant="body1">
-          Sudah absen blum?
-        </Typography>
-      </Box>
+      {/* Icon and other UI components */}
       <Box
         sx={{
           display: "flex",
@@ -215,8 +155,9 @@ export default function Card() {
         <Box
           sx={{ display: "flex", justifyContent: "center", paddingTop: "4px" }}
         >
-          {absenStatus === "pulang" ||
-          localStorage.getItem("status") === "pulang" ? (
+          {isLoading ? (
+            <LoadingSpin />
+          ) : absenStatus === "pulang" ? (
             <div className="text-center text-xl text-green-600">
               Anda sudah absen hari ini
             </div>
@@ -226,18 +167,37 @@ export default function Card() {
               disabled={isButtonDisabled}
               absenStatus={absenStatus}
             >
-              {absenStatus === "datang" ||
-              localStorage.getItem("status") === "datang"
-                ? "Pulang"
-                : "Datang"}
+              {absenStatus === "datang" ? "Pulang" : "Datang"}
             </AbsenButton>
           )}
         </Box>
-        <Typography
-          sx={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}
-        >
-          Absen kamu akan disesuaikan dengan waktu yang tertera!
-        </Typography>
+
+        {/* Alert component */}
+        {openAlert && errorMessage ? (
+          <AlertMessage
+            variant="filled"
+            message={errorMessage}
+            severity="error"
+            onClose={handleAlertClose}
+          />
+        ) : openAlert && absenMessage ? (
+          <AlertMessage
+            variant="filled"
+            message={absenMessage}
+            severity="success"
+            onClose={handleAlertClose}
+          />
+        ) : (
+          <Typography
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "20px",
+            }}
+          >
+            Absen kamu akan disesuaikan dengan waktu yang tertera!
+          </Typography>
+        )}
       </Box>
     </AnimatedCardBox>
   );
