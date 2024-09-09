@@ -1,14 +1,11 @@
-import { useRef, useState } from "react";
-import cowo from "/assets/Asset_cowo.svg";
-import cewe from "/assets/Asset_cewe.svg";
-import lanang from "/assets/lnang.png";
-import wedok from "/assets/wdok.png";
-// import "../App.css"
-import "./login.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import client from "../router/Client";
+import { useRef, useState } from 'react';
+import './login.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faLinkedin, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import client from '../router/Client';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,37 +19,33 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const [email, password] = [
-      inputEmail.current.value,
-      inputPassword.current.value,
-    ];
+    const [email, password] = [inputEmail.current.value, inputPassword.current.value];
 
-    
-    client.post("/auth/login", { email, password }).then(({ data }) => {
-      alert("Berhasil Login");
+    client.post('/auth/login', { email, password }).then(({ data }) => {
+      alert('Berhasil Login');
       const userData = data.data.siswa;
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("nama", data.data.name);
-      localStorage.setItem("email", data.data.email);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('nama', data.data.name);
+      localStorage.setItem('email', data.data.email);
       // nav("/siswa");
       if (userData !== null) {
-        nav("/siswa");
+        nav('/siswa');
       } else if (userData === null) {
-        nav("/admin");
+        nav('/admin');
       } else {
-        alert("Role tidak dikenali. Hubungi administrator.");
+        alert('Role tidak dikenali. Hubungi administrator.');
       }
     });
   };
   const [signUpMode, setSignUpMode] = useState(false);
 
-const handleSignUpClick = () => {
-  setSignUpMode(true);
-};
+  const handleSignUpClick = () => {
+    setSignUpMode(true);
+  };
 
-const handleSignInClick = () => {
-  setSignUpMode(false);
-};
+  const handleSignInClick = () => {
+    setSignUpMode(false);
+  };
 
   return (
     <>
@@ -61,75 +54,70 @@ const handleSignInClick = () => {
           <div className="signin-signup">
             {/* Sign In Form */}
             <form onSubmit={handleSubmit} className="sign-in-form">
-              <h2 className="title">Sign in</h2>
+              <h2 className="title">Login</h2>
               <div className="input-field">
-                <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" ref={inputEmail}/>
+                <i className="fas fa-user">
+                  <FontAwesomeIcon icon={faUser} />
+                </i>
+                <input type="text" placeholder="NISN" />
               </div>
               <div className="input-field">
-                <i className="fas fa-lock"></i>
-                <input placeholder="Masukkan password anda"
-                  type={showPassword ? "text" : "password"}
-                  ref={inputPassword}/>
-                  <button
-                  type="button"
-                  className="absolute lg:translate-y-[75%] translate-y-[60%] right-5"
-                  onClick={togglePasswordVisibility}
-                >
-                  <FontAwesomeIcon
-                    icon={showPassword ? faEye : faEyeSlash}
-                    className="lg:text-xl text-lg text-[#5A6A85] "
-                  />
-                </button>
-
+                <i className="fas fa-lock">
+                  <FontAwesomeIcon icon={faLock} />
+                </i>
+                <input type="password" placeholder="Password" />
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
+                  <i className="fab fa-facebook-f">
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-twitter">
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-google"></i>
+                  <i className="fab fa-google">
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in">
+                    <FontAwesomeIcon icon={faLinkedin} />
+                  </i>
                 </a>
               </div>
             </form>
 
             {/* Sign Up Form */}
             <form action="#" className="sign-up-form">
-              <h2 className="title">Sign up</h2>
-              <div className="input-field">
-                <i className="fas fa-user"></i>
-                <input type="text" placeholder="Username" />
-              </div>
-              <div className="input-field">
-                <i className="fas fa-envelope"></i>
-                <input type="email" placeholder="Email" />
-              </div>
-              <div className="input-field">
-                <i className="fas fa-lock"></i>
-                <input type="password" placeholder="Password" />
-              </div>
-              <input type="submit" className="btn" value="Sign up" />
-              <p className="social-text">Or Sign up with social platforms</p>
-              <div className="social-media">
+              <h1 className="text-2xl font-bold">Tentang Kami</h1>
+              <img src="assets/LogoKita.png" alt="Logo Kita" className="h-[10rem]" />
+              <p className="text-center w-[80%]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore tenetur debitis exercitationem ipsam eveniet temporibus possimus, deleniti expedita ex ut.</p>
+              <div className="social-media pt-8">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f"></i>
+                  <i className="fab fa-facebook-f">
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter"></i>
+                  <i className="fab fa-twitter">
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-google"></i>
+                  <i className="fab fa-google">
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </i>
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in">
+                    <FontAwesomeIcon icon={faLinkedin} />
+                  </i>
                 </a>
               </div>
             </form>
@@ -141,13 +129,10 @@ const handleSignInClick = () => {
           {/* Left Panel */}
           <div className="panel left-panel">
             <div className="content">
-              <h3>New here?</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                ex ratione. Aliquid!
-              </p>
+              <h3>Tentang Kami</h3>
+              <p>Pergi ke halaman tentang kami</p>
               <button className="btn transparent" onClick={handleSignUpClick}>
-                Sign up
+                Oke
               </button>
             </div>
             <img src="/assets/log.svg" className="image" alt="log illustration" />
@@ -156,13 +141,10 @@ const handleSignInClick = () => {
           {/* Right Panel */}
           <div className="panel right-panel">
             <div className="content">
-              <h3>One of us?</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                laboriosam ad deleniti.
-              </p>
+              <h3>Log In</h3>
+              <p>Kembali ke halaman Login👉</p>
               <button className="btn transparent" onClick={handleSignInClick}>
-                Sign in
+                Kembali
               </button>
             </div>
             <img src="/assets/register.svg" className="image" alt="register illustration" />
@@ -171,4 +153,4 @@ const handleSignInClick = () => {
       </div>
     </>
   );
-};
+}
