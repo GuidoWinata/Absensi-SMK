@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLinkedin, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import client from '../router/Client';
 
@@ -27,7 +28,6 @@ export default function Login() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('nama', data.data.name);
       localStorage.setItem('email', data.data.email);
-      // nav("/siswa");
       if (userData !== null) {
         nav('/siswa');
       } else if (userData === null) {
@@ -52,7 +52,6 @@ export default function Login() {
       <div className={`container ${signUpMode ? 'sign-up-mode' : ''}`}>
         <div className="forms-container">
           <div className="signin-signup">
-            {/* Sign In Form */}
             <form onSubmit={handleSubmit} className="sign-in-form">
               <h2 className="title">Login</h2>
               <div className="input-field">
@@ -65,7 +64,10 @@ export default function Login() {
                 <i className="fas fa-lock">
                   <FontAwesomeIcon icon={faLock} />
                 </i>
-                <input type="password" placeholder="Password" />
+                <input type={showPassword ? 'text' : 'password'} placeholder="Password" />
+                <button type="button" className="absolute translate-y-[75%] right-5" onClick={togglePasswordVisibility}>
+                  <FontAwesomeIcon color="grey" icon={showPassword ? faEye : faEyeSlash} />
+                </button>
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>
