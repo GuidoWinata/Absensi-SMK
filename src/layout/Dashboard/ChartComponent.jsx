@@ -18,7 +18,7 @@ const ChartComponent = () => {
       }
 
       chartInstance.current = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
           labels: ['hadir', 'telat', 'ijin/sakit', 'alpha'],
           datasets: [{

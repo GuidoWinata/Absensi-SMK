@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, Chip, Modal } from "@mui/material";
+import { Button, Chip, Modal, Checkbox  } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -57,6 +57,7 @@ export default function Kartu() {
               >
                 Jean Samuel Putra
               </Typography>
+              
               <Box
                 sx={{ width: "100%", display: "flex", justifyContent: "start" }}
               >

@@ -73,12 +73,14 @@ export const Izin = () => {
           width: "67vh",
           height: "auto",
           boxShadow: "0px 0px 10px rgba(0.5, 0.1, 0.1, 0.1)",
+          bgcolor: "#fff",
         }}
       >
         <Box
           component="form"
           sx={{
             display: "flex",
+            justifyContent: "start",
             flexDirection: "column",
             gap: 2,
             maxWidth: 600,
@@ -90,7 +92,7 @@ export const Izin = () => {
           <Typography variant="h5" component="h2" sx={{ textAlign: "center" }}>
             Form Request Izin
           </Typography>
-          <FormControl component="fieldset">
+          <FormControl component="fieldset" sx={{display: "flex", justifyContent:"start", width:"60vh"}}>
             <FormLabel component="legend">Keterangan</FormLabel>
             <RadioGroup
               aria-label="keterangan"

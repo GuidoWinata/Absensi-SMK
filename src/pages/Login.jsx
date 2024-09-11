@@ -14,15 +14,15 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const inputEmail = useRef();
+  const inputIdentifier = useRef();
   const inputPassword = useRef();
   const nav = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const [email, password] = [inputEmail.current.value, inputPassword.current.value];
+    const [identifier, password] = [inputIdentifier.current.value, inputPassword.current.value];
 
-    client.post('/auth/login', { email, password }).then(({ data }) => {
+    client.post('/auth/login', { identifier, password }).then(({ data }) => {
       alert('Berhasil Login');
       const userData = data.data.siswa;
       localStorage.setItem('token', data.token);
@@ -58,16 +58,18 @@ export default function Login() {
                 <i className="fas fa-user">
                   <FontAwesomeIcon icon={faUser} />
                 </i>
-                <input type="text" placeholder="NISN" />
+                <input type="text" placeholder="NISN" ref={inputIdentifier} />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock">
                   <FontAwesomeIcon icon={faLock} />
                 </i>
+
                 <input type={showPassword ? 'text' : 'password'} placeholder="Password" />
                 <button type="button" className="absolute translate-y-[75%] right-5" onClick={togglePasswordVisibility}>
                   <FontAwesomeIcon color="grey" icon={showPassword ? faEye : faEyeSlash} />
                 </button>
+
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>

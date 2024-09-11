@@ -38,6 +38,7 @@ export const Dispen = () => {
     if (file) {
       formDataToSend.append("image", file);
     }
+    
 
     client
       .post("dispen", formDataToSend, {
@@ -68,12 +69,14 @@ export const Dispen = () => {
           width: "67vh",
           height: "auto",
           boxShadow: "0px 0px 10px rgba(0.5, 0.1, 0.1, 0.1)",
+          backgroundColor: "#FFF"
         }}
       >
         <Box
           component="form"
           sx={{
             display: "flex",
+            justifyContent: "start",
             flexDirection: "column",
             gap: 2,
             maxWidth: 600,
