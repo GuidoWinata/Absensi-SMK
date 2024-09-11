@@ -13,14 +13,13 @@ import Kotak from './siswa/Bawah';
 import Header from './siswa/Header';
 
 export default function Siswaadmin() {
-
   return (
     <>
-    <Box sx={{ width: 'full', px: 5, mt: 6 }}>
-    <Header />
-     <Card />
-     <Kotak />
-     </Box>
+      <Box sx={{ width: 'full', px: 5, mt: 6 }}>
+        <Header />
+        <Card />1
+        <Kotak />
+      </Box>
     </>
   );
 }
