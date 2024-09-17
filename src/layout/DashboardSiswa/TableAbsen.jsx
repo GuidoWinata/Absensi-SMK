@@ -15,7 +15,7 @@ export default function TableAbsen() {
   const [presensi, setPresensi] = useState([]);
 
   useEffect(() => {
-    client.get("absen").then(({ data }) => {
+    client.get("presensi").then(({ data }) => {
       // Tambahkan properti hari berdasarkan tanggal
       const updatedData = data.data.map((item) => {
         const dateObj = new Date(item.tanggal);
@@ -31,12 +31,16 @@ export default function TableAbsen() {
         const dayName = days[dateObj.getDay()];
 
         // Format waktu_datang menjadi hanya "HH:mm"
-        const waktuDatangFormatted = item.waktu_datang.substring(11, 16);
+        const waktuDatangFormatted = item.waktu_datang
+          ? item.waktu_datang.substring(11, 16)
+          : "tidak hadir";
 
         // Format waktu_pulang menjadi hanya "HH:mm"
         const waktuPulangFormatted = item.waktu_pulang
           ? item.waktu_pulang.substring(11, 16)
-          : "Belum Pulang";
+          : item.waktu_datang
+          ? "belum pulang"  
+          : "tidak hadir";
 
         return {
           ...item,

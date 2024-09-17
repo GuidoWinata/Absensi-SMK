@@ -28,7 +28,7 @@ export default function TableRiwayat({ selectedDate }) {
 
     // Fetch data berdasarkan tanggal yang dipilih atau default
     client
-      .get(`absen?date=${dateToFetch}`)
+      .get(`presensi?date=${dateToFetch}`)
       .then(({ data }) => {
         const updatedData = data.data.map((item) => {
           const dateObj = new Date(item.tanggal);

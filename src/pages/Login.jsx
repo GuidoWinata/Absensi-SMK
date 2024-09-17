@@ -1,14 +1,23 @@
-import { useRef, useState } from 'react';
-import './login.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faLinkedin, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import client from '../router/Client';
+import { useRef, useState } from "react";
+import "./login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faLinkedin,
+  faFacebook,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { useNavigate } from "react-router-dom";
+import client from "../router/Client";
+import { Alert } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 
 export default function Login() {
+  const [loginMessage, setLoginMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -20,23 +29,32 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const [identifier, password] = [inputIdentifier.current.value, inputPassword.current.value];
+    const [identifier, password] = [
+      inputIdentifier.current.value,
+      inputPassword.current.value,
+    ];
 
-    client.post('/auth/login', { identifier, password }).then(({ data }) => {
-      alert('Berhasil Login');
-      const userData = data.data.siswa;
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('nama', data.data.name);
-      localStorage.setItem('email', data.data.email);
-      if (userData !== null) {
-        nav('/siswa');
-      } else if (userData === null) {
-        nav('/admin');
-      } else {
-        alert('Role tidak dikenali. Hubungi administrator.');
-      }
-    });
+    client
+      .post("/auth/login", { identifier, password })
+      .then(({ data }) => {
+        const userData = data.data.siswa;
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("nama", data.data.name);
+        localStorage.setItem("email", data.data.email);
+
+        if (userData) {
+          setLoginMessage("Berhasil Login");
+          nav("/siswa");
+        } else {
+          setLoginMessage("Berhasil Login");
+          nav("/admin");
+        }
+      })
+      .catch(() => {
+        setErrorMessage("Kesalahan Autentikasi. Hubungi administrator.");
+      });
   };
+
   const [signUpMode, setSignUpMode] = useState(false);
 
   const handleSignUpClick = () => {
@@ -49,50 +67,70 @@ export default function Login() {
 
   return (
     <>
-      <div className={`container ${signUpMode ? 'sign-up-mode' : ''}`}>
+      <div className={`container ${signUpMode ? "sign-up-mode" : ""}`}>
         <div className="forms-container">
           <div className="signin-signup">
             <form onSubmit={handleSubmit} className="sign-in-form">
               <h2 className="title">Login</h2>
+              {loginMessage ? (
+                <Alert
+                  icon={<CheckIcon fontSize="inherit" />}
+                  severity="success"
+                >
+                  {loginMessage}
+                </Alert>
+              ) : errorMessage ? (
+                <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
+                  {errorMessage}
+                </Alert>
+              ) : null}
+
               <div className="input-field">
                 <i className="fas fa-user">
                   <FontAwesomeIcon icon={faUser} />
                 </i>
-                <input type="text" placeholder="NISN" ref={inputIdentifier} />
+                <input
+                  type="text"
+                  placeholder="NISN"
+                  ref={inputIdentifier}
+                  required
+                />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock">
                   <FontAwesomeIcon icon={faLock} />
                 </i>
-
-                <input type={showPassword ? 'text' : 'password'} placeholder="Password" />
-                <button type="button" className="absolute translate-y-[75%] right-5" onClick={togglePasswordVisibility}>
-                  <FontAwesomeIcon color="grey" icon={showPassword ? faEye : faEyeSlash} />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  ref={inputPassword}
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute translate-y-[75%] right-5"
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    color="grey"
+                    icon={showPassword ? faEye : faEyeSlash}
+                  />
                 </button>
-
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f">
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </i>
+                  <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </i>
+                  <FontAwesomeIcon icon={faTwitter} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-google">
-                    <FontAwesomeIcon icon={faFacebook} />
-                  </i>
+                  <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in">
-                    <FontAwesomeIcon icon={faLinkedin} />
-                  </i>
+                  <FontAwesomeIcon icon={faLinkedin} />
                 </a>
               </div>
             </form>
@@ -100,28 +138,28 @@ export default function Login() {
             {/* Sign Up Form */}
             <form action="#" className="sign-up-form">
               <h1 className="text-2xl font-bold">Tentang Kami</h1>
-              <img src="assets/LogoKita.png" alt="Logo Kita" className="h-[10rem]" />
-              <p className="text-center w-[80%]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore tenetur debitis exercitationem ipsam eveniet temporibus possimus, deleniti expedita ex ut.</p>
+              <img
+                src="assets/LogoKita.png"
+                alt="Logo Kita"
+                className="h-[10rem]"
+              />
+              <p className="text-center w-[80%]">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore
+                tenetur debitis exercitationem ipsam eveniet temporibus
+                possimus, deleniti expedita ex ut.
+              </p>
               <div className="social-media pt-8">
                 <a href="#" className="social-icon">
-                  <i className="fab fa-facebook-f">
-                    <FontAwesomeIcon icon={faInstagram} />
-                  </i>
+                  <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-twitter">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </i>
+                  <FontAwesomeIcon icon={faTwitter} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-google">
-                    <FontAwesomeIcon icon={faFacebook} />
-                  </i>
+                  <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a href="#" className="social-icon">
-                  <i className="fab fa-linkedin-in">
-                    <FontAwesomeIcon icon={faLinkedin} />
-                  </i>
+                  <FontAwesomeIcon icon={faLinkedin} />
                 </a>
               </div>
             </form>
@@ -139,7 +177,11 @@ export default function Login() {
                 Oke
               </button>
             </div>
-            <img src="/assets/log.svg" className="image" alt="log illustration" />
+            <img
+              src="/assets/log.svg"
+              className="image"
+              alt="log illustration"
+            />
           </div>
 
           {/* Right Panel */}
@@ -151,7 +193,11 @@ export default function Login() {
                 Kembali
               </button>
             </div>
-            <img src="/assets/register.svg" className="image" alt="register illustration" />
+            <img
+              src="/assets/register.svg"
+              className="image"
+              alt="register illustration"
+            />
           </div>
         </div>
       </div>
