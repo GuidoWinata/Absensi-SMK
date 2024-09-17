@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, Chip, Modal, Checkbox  } from "@mui/material";
+import { Button, Chip, Modal } from "@mui/material";
+import PropTypes from "prop-types";
+import client from "../../router/Client";
 
 const style = {
   position: "absolute",
@@ -12,17 +14,56 @@ const style = {
   outline: "none",
   transform: "translate(-50%, -50%)",
   width: "50%",
-  height: "80%",
+  height: "85%",
   bgcolor: "background.paper",
   border: "transparent",
   boxShadow: 24,
   p: 4,
 };
 
-export default function Kartu() {
+Kartu.propTypes = {
+  id: PropTypes.number.isRequired,
+  nama: PropTypes.string.isRequired,
+  deskripsi: PropTypes.string.isRequired,
+  keterangan: PropTypes.string.isRequired,
+  tanggal: PropTypes.string.isRequired,
+  gambar: PropTypes.string.isRequired,
+};
+
+export default function Kartu(props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const imageUrl = "http://localhost:8000/storage/uploads/" + props.gambar;
+
+  const handleApprove = async (e) => {
+    e.preventDefault();
+
+    try {
+      let response;
+
+      if (props.keterangan === "dispen") {
+        response = await client.put(`dispen/${props.id}`);
+        alert("Berhasil approve dispen");
+      } else if (props.keterangan === "izin") {
+        response = await client.put(`izin/${props.id}`);
+        alert("Berhasil approve izin atau sakit");
+      } else {
+        alert("GOBLOK!!");
+      }
+
+      console.log(response.data);
+
+      // Update UI di sini tanpa reload page jika memungkinkan
+      // Jika memang harus reload, bisa pakai ini:
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan saat menyetujui.");
+    }
+  };
+
   return (
     <>
       <Button
@@ -55,17 +96,30 @@ export default function Kartu() {
                 component="div"
                 variant="h5"
               >
-                Jean Samuel Putra
+                {props.nama}
               </Typography>
-              
+              <Typography
+                textTransform={"capitalize"}
+                textAlign={"start"}
+                component="div"
+                variant="p"
+              >
+                {props.deskripsi}
+              </Typography>
+
               <Box
                 sx={{ width: "100%", display: "flex", justifyContent: "start" }}
               >
                 <Chip
-                  label="Izin"
+                  label={props.keterangan}
                   sx={{
                     mt: 1,
-                    backgroundColor: "#FFAE1F",
+                    backgroundColor:
+                      props.keterangan === "izin"
+                        ? "#00D8B6"
+                        : props.keterangan === "dispen"
+                        ? "#4B0082"
+                        : "#00D8B6",
                     color: "white",
                     fontWeight: "bold",
                     borderRadius: 2,
@@ -77,8 +131,23 @@ export default function Kartu() {
           </Box>
         </Card>
       </Button>
+
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
+          <div className="flex justify-center items-center">
+            <h1
+              className={`text-3xl text-center text-white font-bold w-[140px] p-2 rounded-lg 
+  ${
+    props.keterangan === "izin"
+      ? "bg-[#00D8B6]"
+      : props.keterangan === "dispen"
+      ? "bg-[#4B0082]"
+      : "bg-[#00D8B6]"
+  }`}
+            >
+              {props.keterangan.toUpperCase()}
+            </h1>
+          </div>
           <Typography id="modal-modal-nama" variant="p" fontSize={18}>
             Nama
           </Typography>
@@ -92,8 +161,9 @@ export default function Kartu() {
               mt: 1,
             }}
           >
-            Jean Samuel Putra
+            {props.nama}
           </Typography>
+
           <Typography id="modal-modal-nama" variant="p" fontSize={18}>
             Tanggal
           </Typography>
@@ -107,10 +177,11 @@ export default function Kartu() {
               mt: 1,
             }}
           >
-            12-02-2024
+            {props.tanggal}
           </Typography>
+
           <Typography id="modal-modal-nama" variant="p" fontSize={18}>
-            Keterangan
+            Deskripsi
           </Typography>
           <Typography
             id="modal-modal-nama-siswa"
@@ -123,28 +194,27 @@ export default function Kartu() {
               mt: 1,
             }}
           >
-            Jean Samuel Putra
+            {props.deskripsi}
           </Typography>
 
           <Typography id="modal-modal-gambar" variant="p" fontSize={18}>
             Bukti foto
           </Typography>
-          <img
-            src="https://plus.unsplash.com/premium_photo-1661398569556-8a9fe2c39ae4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            className="h-[180px]"
-            alt="Orang Sakit"
-          />
+
+          {/* Gunakan props.gambar dengan URL dinamis */}
+          <img src={imageUrl} className="h-[140px]" alt="Bukti foto" />
+
           <Box
             className="button-wrapper"
             sx={{
-              bgcolor: "white",
-              pt: 10,
+              // bgcolor: "white",
               display: "flex",
               justifyContent: "end",
               gap: 3,
             }}
           >
             <Button
+              onClick={handleApprove}
               sx={{
                 bgcolor: "#2D8EFF",
                 color: "white",

@@ -103,7 +103,7 @@ export default function Card() {
     setIsButtonDisabled(true);
 
     client
-      .post("absen")
+      .post("presensi")
       .then(({ data }) => {
         setAbsenStatus(data.status);
         setAbsenMessage(data.message);

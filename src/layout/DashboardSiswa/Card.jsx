@@ -3,13 +3,11 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Box, Grid, Typography, CircularProgress } from "@mui/material";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import client from "../../router/Client";
 import MailIcon from "@mui/icons-material/Mail";
 import CancelIcon from "@mui/icons-material/Cancel";
-import LoadingSpin from "../../components/LoadingSpin";
 import SkeletonCard from "../../components/SkeletonCard";
 
 const slideInRight = keyframes`
@@ -46,7 +44,7 @@ export default function Card() {
       setCountIzin(count);
     });
 
-    client.get("absen").then(({ data }) => {
+    client.get("presensi").then(({ data }) => {
       const alphaCount = data.data.filter(
         (item) => item.keterangan === "alpha"
       ).length;
