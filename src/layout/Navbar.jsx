@@ -1,7 +1,7 @@
 import Logo from '/assets/Logo.svg';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Box, Tooltip, IconButton, Avatar, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, Tooltip, IconButton, Avatar, Menu, MenuItem  } from '@mui/material';
 
 const setting = ['Profile', 'Logout'];
 export default function Navbar() {
@@ -68,7 +68,7 @@ export default function Navbar() {
                   color: selectedButton === 'Absensi' ? '#2D8EFF' : 'gray',
                   '&:hover': { color: '#2D8EFF' },
                 }}>
-                Absensi
+                    Absensi
               </Button>
             </Link>
           </Box>
