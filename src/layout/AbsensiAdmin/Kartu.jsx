@@ -50,7 +50,7 @@ export default function Kartu(props) {
         response = await client.put(`izin/${props.id}`);
         alert('Berhasil approve izin atau sakit');
       } else {
-        alert('GOBLOK!!');
+        alert('Maaf Tidak bisa Approve');
       }
 
       console.log(response.data);

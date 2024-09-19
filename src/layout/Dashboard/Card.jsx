@@ -41,7 +41,7 @@ export default function Card() {
                     <CircularProgress
                       size={80}
                       thickness={4}
-                      value={(19 / 36) * 100} // Menghitung persentase
+                      value={(19 / 36) * 100} 
                       variant="determinate"
                     />
                     <Box
