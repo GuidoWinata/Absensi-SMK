@@ -96,7 +96,7 @@ export default function Navbar() {
         sx={{
           px: 5,
           borderRadius: "0 0 50px 50px",
-          boxShadow: "1px 1px 10px grey",
+          boxShadow: "0px 12px 24px #DDE9F9",
           backgroundColor: 'white'
         }}
       >

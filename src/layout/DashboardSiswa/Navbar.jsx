@@ -84,16 +84,6 @@ export default function Navbar() {
                 <Link to="/siswa/dispen"><MenuItem onClick={() => handleClose('Dispen')}>Dispen</MenuItem></Link>
               </Menu>
             </div>
-            {/* <Button
-              onClick={() => handleButtonClick('About')}
-              sx={{
-                fontWeight: 'bold',
-                color: selectedButton === 'About' ? '#2D8EFF' : 'gray',
-                borderBottom: selectedButton === 'About' ? '2px solid #2D8EFF' : '2px solid transparent',
-                '&:hover': { color: '#2D8EFF', borderBottom: '2px solid #2D8EFF' },
-              }}>
-              About
-            </Button> */}
           </Box>
           <Box>
             <Tooltip title="Pengaturan">
