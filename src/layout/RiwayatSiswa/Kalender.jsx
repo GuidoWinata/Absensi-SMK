@@ -18,7 +18,7 @@ export default function KotakTiga() {
       container
       justifyContent="center"
       alignItems="center"
-      style={{ height: "40%" }}
+      style={{ height: {md:"40%", sm:"40%", xs:"20%"} }}
     >
       <Grid item>
         <LocalizationProvider dateAdapter={AdapterDayjs}>

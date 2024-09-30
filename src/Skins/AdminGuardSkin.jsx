@@ -67,25 +67,66 @@ export default function Navbar() {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2, marginLeft: 2 }}>
-        <img src={Logo} alt="Logo" style={{ width: "120px" }} />
-      </Typography>
-      <List>
-        <ListItem button component={Link} to="dashboard">
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem button component={Link} to="siswa">
-          <ListItemText primary="Siswa" />
-        </ListItem>
-        <ListItem button component={Link} to="absensi">
-          <ListItemText primary="Absensi" />
-        </ListItem>
-        <ListItem button onClick={logout}>
-          <ListItemText primary="Logout" />
-        </ListItem>
-      </List>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", height: "90%" }}>
+  <Typography variant="h6" sx={{ my: 2, marginLeft: 2 }}>
+    <img src={Logo} alt="Logo" style={{ width: "120px" }} />
+  </Typography>
+  <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+    <List sx={{ flexGrow: 1 }}>
+      <ListItem button component={Link} to="dashboard">
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+      <ListItem button component={Link} to="siswa">
+        <ListItemText primary="Siswa" />
+      </ListItem>
+      <ListItem button component={Link} to="absensi">
+        <ListItemText primary="Absensi" />
+      </ListItem>
+      <ListItem button onClick={logout}>
+        <ListItemText primary="Logout" />
+      </ListItem>
+    </List>
+
+    {/* Box profil di bawah List */}
+    <Box sx={{ display: "flex", justifyContent: "center", paddingBottom: 2 }}>
+      <Tooltip title="Pengaturan">
+        <IconButton
+          onClick={handleOpenUserMenu}
+          sx={{
+            "&:hover": {
+              backgroundColor: "transparent",
+              boxShadow: "none",
+            },
+          }}
+        >
+          <Avatar
+            sx={{ height: 56, width: 56 }}
+            alt="Profil"
+            src="https://plus.unsplash.com/premium_photo-1664300900349-afd61c20f8b8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "start",
+              marginRight: 2,
+              marginLeft: { xs: 1 },
+            }}
+          >
+            <Typography sx={{ fontWeight: "bold", color: "black" }}>
+              {localStorage.getItem("nama")}
+            </Typography>
+            <Typography sx={{ fontWeight: "light" }}>
+              {localStorage.getItem("email")}
+            </Typography>
+          </Box>
+        </IconButton>
+      </Tooltip>
     </Box>
+  </Box>
+</Box>
+
+
   );
 
   return (
@@ -95,7 +136,7 @@ export default function Navbar() {
         color="inherit"
         sx={{
           px: 5,
-          borderRadius: "0 0 50px 50px",
+          borderRadius: {md:"0 0 50px 50px",},
           boxShadow: "0px 12px 24px #DDE9F9",
           backgroundColor: 'white'
         }}
