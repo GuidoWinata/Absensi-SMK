@@ -16,7 +16,7 @@ export default function Card() {
       <Grid container spacing={isMobile ? 4 : 7}>
         {isMobile ? (
           <>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={6} sm={6} md={3}>
             <Box
               sx={{
                 bgcolor: '#FFFFFF',
@@ -24,20 +24,24 @@ export default function Card() {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'start',
+                overflow: 'hidden',
                 alignItems: 'center',
                 borderRadius: 7,
                 boxShadow: "0px 12px 24px #DDE9F9",
               }}
             >
-            <Box sx={{ marginLeft: 3, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
-              <EventAvailableIcon sx={{ fontSize: 70, color: '#2D8EFF' }} />
-              <Box sx={{ display: 'flex', flexDirection: 'row', paddingLeft: 4 }}>
-                <Box>
-                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#5A6A85">
-                    Total Presensi
+            <Box sx={{ marginLeft: 0, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
+              <EventAvailableIcon sx={{ fontSize: 70, color: '#2D8EFF', display:{xs: 'none'} }} />
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box sx={{ textAlign:'center' }}>
+                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#2D8EFF', px: 3, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
+                    Presensi
                   </Typography>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                    19 Siswa
+                  <Typography variant="h5" color="#0175f8" sx={{ fontWeight: 'bold', fontSize: 40 }}>
+                    19
+                  </Typography>
+                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#2D8EFF">
+                    Siswa
                   </Typography>
                 </Box>
               </Box>
@@ -45,7 +49,7 @@ export default function Card() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={6} sm={6} md={3}>
             <Box
               sx={{
                 bgcolor: '#FFFFFF',
@@ -54,19 +58,23 @@ export default function Card() {
                 display: 'flex',
                 justifyContent: 'start',
                 alignItems: 'center',
+                overflow:'hidden',
                 borderRadius: 7,
                 boxShadow: "0px 12px 24px #DDE9F9",
               }}
             >
-            <Box sx={{ marginLeft: 3, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
-              <MailIcon sx={{ fontSize: 70, color: '#00D8B6' }} />
-              <Box sx={{ display: 'flex', flexDirection: 'row', paddingLeft: 4 }}>
-                <Box>
-                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#5A6A85">
-                    Total Ijin/Sakit
+            <Box sx={{ marginLeft: 0, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
+              <MailIcon sx={{ fontSize: 70, color: '#00D8B6', display:{xs: 'none'} }} />
+              <Box sx={{ display: 'flex', flexDirection: 'row',  }}>
+                <Box sx={{ textAlign:'center' }}>
+                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#00D8B6', px: 6, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
+                    Izin
                   </Typography>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                    19 Siswa
+                  <Typography variant="h5" color="#00d8b6" sx={{ fontWeight: 'bold', fontSize: 40 }}>
+                    19
+                  </Typography>
+                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#01f8d3">
+                    Siswa
                   </Typography>
                 </Box>
               </Box>
@@ -74,7 +82,7 @@ export default function Card() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={6} sm={6} md={3}>
             <Box
               sx={{
                 bgcolor: '#FFFFFF',
@@ -84,18 +92,22 @@ export default function Card() {
                 justifyContent: 'start',
                 alignItems: 'center',
                 borderRadius: 7,
+                overflow: 'hidden',
                 boxShadow: "0px 12px 24px #DDE9F9",
               }}
             >
-            <Box sx={{ marginLeft: 3, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
-              <AccessTimeIcon sx={{ fontSize: 70, color: "#FFAE1F" }} />
-              <Box sx={{ display: 'flex', flexDirection: 'row', paddingLeft: 4 }}>
-                <Box>
-                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#5A6A85">
-                    Total Telat
+            <Box sx={{ marginLeft: 0, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
+              <AccessTimeIcon sx={{ fontSize: 70, color: "#FFAE1F",  display:{xs: 'none'} }} />
+              <Box sx={{ display: 'flex', flexDirection: 'row',  }}>
+                <Box sx={{ textAlign:'center' }}>
+                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#FFAE1F', px: 5.2, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
+                    Telat
                   </Typography>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                    19 Siswa
+                  <Typography variant="h5" color="#ffa201" sx={{ fontWeight: 'bold', fontSize: 40 }}>
+                    19
+                  </Typography>
+                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#ffae1f">
+                    Siswa
                   </Typography>
                 </Box>
               </Box>
@@ -103,7 +115,7 @@ export default function Card() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={6} sm={6} md={3}>
             <Box
               sx={{
                 bgcolor: '#FFFFFF',
@@ -112,19 +124,23 @@ export default function Card() {
                 display: 'flex',
                 justifyContent: 'start',
                 alignItems: 'center',
+                overflow: 'hidden',
                 borderRadius: 7,
                 boxShadow: "0px 12px 24px #DDE9F9",
               }}
             >
-            <Box sx={{ marginLeft: 3, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
-              <CancelIcon sx={{ fontSize: 70, color: "#DC3545" }} />
-              <Box sx={{ display: 'flex', flexDirection: 'row', paddingLeft: 4 }}>
-                <Box>
-                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#5A6A85">
-                    Total Alpha
+            <Box sx={{ marginLeft: 0, display: 'flex', flexDirection: 'row', textAlign: 'start', height: '65%', alignItems: 'center' }}>
+              <CancelIcon sx={{ fontSize: 70, color: "#DC3545",  display:{xs: 'none'} }} />
+              <Box sx={{ display: 'flex', flexDirection: 'row',  }}>
+                <Box sx={{ textAlign:'center' }}>
+                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#DC3545', px: 4.6, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
+                    Alpha
                   </Typography>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                    19 Siswa
+                  <Typography variant="h5" color="#ff0b21" sx={{ fontWeight: 'bold', fontSize: 40 }}>
+                    19
+                  </Typography>
+                  <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#dc3545">
+                    Siswa
                   </Typography>
                 </Box>
               </Box>

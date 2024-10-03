@@ -37,7 +37,7 @@ const ChartComponent = () => {
           scales: {
             y: {
               beginAtZero: true,
-              max: 40 // Set maximum value of y-axis to 36
+              max: 40 
             },
             x: {
               beginAtZero: true
