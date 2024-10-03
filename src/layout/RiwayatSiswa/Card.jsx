@@ -29,7 +29,7 @@ export default function Card() {
   }, []);
   return (
     <Grid container spacing={2} sx={{ padding: "20px" }}>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         <Box
           sx={{
             bgcolor: "#DDE9F9",
@@ -59,7 +59,7 @@ export default function Card() {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         <Box
           sx={{
             bgcolor: "#E6FFFA",
@@ -89,7 +89,7 @@ export default function Card() {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         <Box
           sx={{
             bgcolor: "#FEF5E5",
