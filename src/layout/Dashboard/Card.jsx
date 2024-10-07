@@ -3,10 +3,25 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CancelIcon from "@mui/icons-material/Cancel";
 import MailIcon from "@mui/icons-material/Mail";
-import { useTheme } from "@mui/material/styles";
-import React from 'react';
+import { alpha, useTheme } from "@mui/material/styles";
+import React, { useEffect, useState } from 'react';
+import { formatDate } from '../../helpers/helper';
+import client from '../../router/Client';
 
 export default function Card() {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    client.get('cek-kehadiran').then(({data}) => {
+      setData(data.data)
+    })
+  }, [])
+
+  const izinCount = data.filter(item => item.keterangan === 'izin').length;
+  const telatCount = data.filter(item => item.keterangan === 'telat').length;
+  const presensiCount = data.filter(item => item.waktu_datang !== null).length;
+  const alphaCount = data.filter(item => item.waktu_datang === null && item.keterangan !== 'izin' ).length;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -38,7 +53,7 @@ export default function Card() {
                     Presensi
                   </Typography>
                   <Typography variant="h5" color="#0175f8" sx={{ fontWeight: 'bold', fontSize: 40 }}>
-                    19
+                    {presensiCount}
                   </Typography>
                   <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#2D8EFF">
                     Siswa
@@ -168,17 +183,17 @@ export default function Card() {
                   <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                     <Box>
                       <Typography variant="subtitle1" fontWeight="semibold" color="#5A6A85">
-                        Total Presensi
+                        Total 
                       </Typography>
                       <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                        19 Siswa
+                        {presensiCount} Siswa
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                       <CircularProgress
                         size={80}
                         thickness={4}
-                        value={(19 / 36) * 100}
+                        value={(presensiCount / 36) * 100}
                         variant="determinate"
                       />
                       <Box
@@ -200,7 +215,7 @@ export default function Card() {
                           color="text.secondary"
                           sx={{ fontWeight: "bold" }}
                         >
-                          {`19/36`}
+                          {`${presensiCount}/36`}
                         </Typography>
                       </Box>
                     </Box>
@@ -229,17 +244,14 @@ export default function Card() {
                         Total Ijin/Sakit
                       </Typography>
                       <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                        19 Siswa
-                      </Typography>
-                      <Typography variant="subtitle1" fontWeight="semibold" color="#5A6A85">
-                        Hari ini
+                        {izinCount} Siswa
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
                       <CircularProgress
                         size={80}
                         thickness={4}
-                        value={(19 / 36) * 100}
+                        value={(izinCount / 36) * 100}
                         variant="determinate"
                         sx={{ color: '#00D8B6' }}
                       />
@@ -262,7 +274,7 @@ export default function Card() {
                           color="text.secondary"
                           sx={{ fontWeight: "bold" }}
                         >
-                          {`19/36`}
+                          {`${izinCount}/36`}
                         </Typography>
                       </Box>
                     </Box>
@@ -270,6 +282,120 @@ export default function Card() {
                 </Box>
               </Box>
             </Grid>
+            <Grid item xs={3}>
+          <Box
+            sx={{
+              bgcolor: '#FFFFFF',
+              height: 230,
+              width: 'full',
+              display: 'flex',
+              justifyContent: 'start',
+              alignItems: 'center',
+              borderRadius: 7,
+              boxShadow: "0px 12px 24px #DDE9F9",
+            }}>
+            <Box sx={{marginLeft: 5, display: 'flex', justifyContent: 'space-around', flexDirection: 'column', textAlign: 'start', height: '65%', alignItems: 'start' }}>
+              <AccessTimeIcon sx={{ fontSize: 65, color: '#FFAE1F' }} />
+              <Box  sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box>
+                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
+                  Total Telat
+                </Typography>
+                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                  {telatCount} Siswa
+                </Typography>
+                
+                </Box>
+                  <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
+                    <CircularProgress
+                      size={80}
+                      thickness={4}
+                      value={(telatCount / 36) * 100} // Menghitung persentase
+                      variant="determinate"
+                      sx={{color:'#FFAE1F'}}
+                    />
+                    <Box
+                      sx={{
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        position: "absolute",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 0
+                      }}
+                    >
+                      <Typography
+                        variant="caption"
+                        component="div"
+                        color="text.secondary"
+                        sx={{ fontWeight: "bold" }}
+                      >{`${telatCount}/36`}</Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={3}>
+          <Box
+            sx={{
+              bgcolor: '#FFFFFF',
+              height: 230,
+              width: 'full',
+              display: 'flex',
+              justifyContent: 'start',
+              alignItems: 'center',
+              borderRadius: 7,
+              boxShadow: "0px 12px 24px #DDE9F9",
+            }}>
+            <Box sx={{marginLeft: 5, display: 'flex', justifyContent: 'space-around', flexDirection: 'column', textAlign: 'start', height: '65%', alignItems: 'start' }}>
+              <CancelIcon sx={{ fontSize: 65, color: '#DC3545' }} />
+              <Box  sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box>
+                <Typography variant="p" fontWeight="semibold" color="#5A6A85">
+                  Total Alpha
+                </Typography>
+                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                  {alphaCount} Siswa
+                </Typography>
+                
+                </Box>
+                  <Box sx={{ marginLeft: 5, position: "relative", display: "inline-flex" }}>
+                    <CircularProgress
+                      size={80}
+                      thickness={4}
+                      value={(alphaCount / 36) * 100} // Menghitung persentase
+                      variant="determinate"
+                      sx={{color:'#DC3545'}}
+                    />
+                    <Box
+                      sx={{
+                        top: 0,
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        position: "absolute",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 0
+                      }}
+                    >
+                      <Typography
+                        variant="caption"
+                        component="div"
+                        color="text.secondary"
+                        sx={{ fontWeight: "bold" }}
+                      >{`${alphaCount}/36`}</Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
           </>
         )}
       </Grid>

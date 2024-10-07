@@ -4,15 +4,25 @@ import { CssVarsProvider, extendTheme } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
 import filter from '../../static/filter';
 import rows from '../../static/data';
-import { React, useState, useRef } from 'react';
+import { React, useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import ChartComponent from './ChartComponent';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import client from '../../router/Client';
+import { formatDate, toUpperCase, capitalizeWords, formatTime, isLate } from '../../helpers/helper';
 
 export default function Kotak() {
   const [page, setPage] = useState(0);
+  const [data, setData] = useState([]);
   const rowsPerPage = 4;
+
+  useEffect(() => {
+    client.get('cek-kehadiran').then(({data}) => {
+      console.log(data.data)
+      setData(data.data)
+    })
+  }, [])
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -20,7 +30,7 @@ export default function Kotak() {
 
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const paginatedRows = rows.slice(startIndex, endIndex);
+  const paginatedRows = data.slice(startIndex, endIndex);
 
   const theme = extendTheme({
     components: {
@@ -93,24 +103,24 @@ export default function Kotak() {
                       <TableBody sx={{ '& .MuiTableCell-root': { fontSize: '18px' }, '& .MuiChip-root': { fontSize: '18px', width: 90, fontWeight: 'bold', borderRadius: 2 } }}>
                         {paginatedRows.map((row, index) => (
                           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                            <TableCell align="center">{row.nama}</TableCell>
-                            <TableCell align="center">{row.tanggal}</TableCell>
+                            <TableCell align="center">{toUpperCase(row.siswa.nama)}</TableCell>
+                            <TableCell align="center">{formatDate(row.tanggal)}</TableCell>
                             <TableCell align="center">
                               <Chip
-                                label={row.keterangan}
+                                label={capitalizeWords(row.keterangan)}
                                 sx={{
                                   width: 90,
-                                  backgroundColor: row.keterangan === 'Alpha' ? '#FBF2EF' : row.keterangan === 'Hadir' ? '#E6FFFA' : row.keterangan === 'Telat' ? '#FEF5E5' : '#555E68',
-                                  color: row.keterangan === 'Alpha' ? '#DC3545' : row.keterangan === 'Hadir' ? '#00D8B6' : row.keterangan === 'Telat' ? '#FFAE1F' : '#555E68',
+                                  backgroundColor: row.keterangan === 'alpha' ? '#FBF2EF' : row.keterangan === 'hadir' ? '#E6FFFA' : row.keterangan === 'telat' ? '#FEF5E5' : row.keterangan === 'izin' ? '#b4fff6' : '#555E68',
+                                  color: row.keterangan === 'alpha' ? '#DC3545' : row.keterangan === 'hadir' ? '#00D8B6' : row.keterangan === 'telat' ? '#FFAE1F' : row.keterangan === 'izin' ? '#00d8b6' : '#555E68',
                                 }}
                               />
                             </TableCell>
                             <TableCell align="center">
                               <Chip
-                                label={row.hadir}
+                                label={formatTime(row.waktu_datang)}
                                 sx={{
-                                  backgroundColor: row.hadir === 'Tdk Absen' ? '#FBF2EF' : '#DDE9F9',
-                                  color: row.hadir === 'Tdk Absen' ? '#DC3545' : '#2D8EFF',
+                                  backgroundColor: isLate(row.waktu_datang) ? '#FBF2EF' : '#DDE9F9',
+                                  color: isLate(row.waktu_datang) ? '#DC3545' : '#2D8EFF',
                                 }}
                               />
                             </TableCell>

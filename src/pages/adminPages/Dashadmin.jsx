@@ -12,7 +12,6 @@ export default function Dashadmin() {
 
   React.useEffect(() => {
     client.get('absen').then(({ data }) => {
-      console.log(data.data);
       setDataAbsen(data.data);
 
       notify(data.data.length)
@@ -38,7 +37,6 @@ export default function Dashadmin() {
     <>
       <Box sx={{ width: 'full', px: 5, mt: 6 }}>
         <ToastContainer />
-        <Header />
         <Card />
         <Kotak />
       </Box>
