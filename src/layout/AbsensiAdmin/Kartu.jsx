@@ -66,7 +66,8 @@ export default function Kartu(props) {
       <Button
         onClick={handleOpen}
         sx={{
-          width: '90%',
+          width: {xs: '100%', lg: '90%'},
+          paddingLeft: {xs: 3},
           display: 'flex',
           ':hover': { bgcolor: 'transparent' },
           ':active': { color: 'transparent' },
@@ -74,7 +75,7 @@ export default function Kartu(props) {
         }}>
         <Card
           sx={{
-            width: '100%',
+            width: {xs: "80%", lg: '100%'},
             height: 140,
             overflow: 'visible',
             position: 'relative',

@@ -55,7 +55,7 @@ export default function Kotak() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false // Matikan arrow default dari slick
+    arrows: false
   };
 
   const handlePrev = () => {

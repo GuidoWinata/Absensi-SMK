@@ -21,14 +21,14 @@ export default function Absensimin() {
     )
   }
   return (
-    <Grid container spacing={3} mt={7} sx={{ px: 10, '& .MuiGrid-item': { paddingLeft: 0 } }}>
+    <Grid container spacing={3} mt={7} sx={{px: {sm: 0, lg: 10}, '& .MuiGrid-item': { paddingLeft: 0 } }}>
       {dataAbsen.length === 0 ? (
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
           <Typography variant="h6">Tidak ada data</Typography>
         </Grid>
       ) : (
         dataAbsen.map((absen, index) => (
-          <Grid item xs={3} key={index}>
+          <Grid item lg={3} sm={6} xs={12} key={index}>
             <Kartu 
               id={absen.id} 
               nama={absen.siswa.nama} 

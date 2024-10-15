@@ -16,7 +16,6 @@ export default function TableAbsen() {
 
   useEffect(() => {
     client.get("presensi").then(({ data }) => {
-      // Tambahkan properti hari berdasarkan tanggal
       const updatedData = data.data.map((item) => {
         const dateObj = new Date(item.tanggal);
         const days = [

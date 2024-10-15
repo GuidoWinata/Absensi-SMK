@@ -17,7 +17,7 @@ export default function Siswaadmin() {
     <>
       <Box sx={{ width: 'full', px: 5, mt: 6 }}>
         <Header />
-        <Card />1
+        <Card />
         <Kotak />
       </Box>
     </>
