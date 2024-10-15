@@ -1,4 +1,4 @@
-import { Box, Grid, Table, Typography, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Button, IconButton  } from '@mui/material';
+import { Box, Grid, Table, Typography, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Button, IconButton } from '@mui/material';
 import { Autocomplete, Input } from '@mui/joy';
 import { CssVarsProvider, extendTheme } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,11 +18,11 @@ export default function Kotak() {
   const rowsPerPage = 4;
 
   useEffect(() => {
-    client.get('cek-kehadiran').then(({data}) => {
-      console.log(data.data)
-      setData(data.data)
-    })
-  }, [])
+    client.get('cek-kehadiran').then(({ data }) => {
+      console.log(data.data);
+      setData(data.data);
+    });
+  }, []);
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -55,7 +55,7 @@ export default function Kotak() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false
+    arrows: false,
   };
 
   const handlePrev = () => {
@@ -68,9 +68,9 @@ export default function Kotak() {
 
   return (
     <>
-     <Box sx={{ width: '100%', position: 'relative' }}>
+      <Box sx={{ width: '100%', position: 'relative' }}>
         <Slider {...settings} ref={sliderRef}>
-          <Box sx={{ display: 'flex'}}>
+          <Box sx={{ display: 'flex' }}>
             <Grid item xs={6}>
               <Box
                 className="wrapper"
@@ -79,19 +79,19 @@ export default function Kotak() {
                   width: 'full',
                   height: 700,
                   display: 'flex',
-                  justifyContent:'center'
+                  justifyContent: 'center',
                 }}>
-                <Box sx={{ px: 10, pt: 5, width: '95%', height: 550, borderRadius: 3, bgcolor:'white', boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'end', width: 'full', gap: 3 }}>
-                  <CssVarsProvider theme={theme}>
-                    <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 47 }} />
-                    <Input variant="soft" sx={{ width: 300 }} startDecorator={<SearchIcon />} placeholder="Cari" />
-                  </CssVarsProvider>
-                </Box>
-                  <Typography sx={{ fontSize: '1.9rem', fontWeight: 'bold', color: '#373D3F' }}>Rekap Presensi Siswa</Typography>
+                <Box sx={{ px: { lg: 10, xs: 3 }, pt: { lg: 5, xs: 3 }, width: '95%', height: 550, borderRadius: 3, bgcolor: 'white', boxShadow: '0px 12px 30px 9px #DDE9F9', mt: {lg: 8, xs: 2} }}>
+                  <Box sx={{ display: { lg: 'flex', xs: 'none' }, justifyContent: 'end', width: 'full', gap: 3 }}>
+                    <CssVarsProvider theme={theme}>
+                      <Autocomplete variant="soft" placeholder="Filter" options={filter} sx={{ width: 150, height: 47 }} />
+                      <Input variant="soft" sx={{ width: 300, xs: { display: 'none' } }} startDecorator={<SearchIcon />} placeholder="Cari" />
+                    </CssVarsProvider>
+                  </Box>
+                  <Typography sx={{ fontSize: { lg: '1.9rem', xs: '1.5rem' }, fontWeight: 'bold', color: '#373D3F' }}>Rekap Presensi Siswa</Typography>
                   <TableContainer component={Paper} sx={{ mt: 4 }}>
                     <Table sx={{ minWidth: 250 }}>
-                      <TableHead sx={{ bgcolor: '#DDE9F9', '& .MuiTableCell-root': { fontWeight: 600, width: 900, fontSize: '19px', color: '#32383E' } }}>
+                      <TableHead sx={{ bgcolor: '#DDE9F9', '& .MuiTableCell-root': { fontWeight: 600, width: 900, fontSize: { lg: '19px', xs: '15px' }, color: '#32383E' } }}>
                         <TableRow>
                           <TableCell align="center">Nama</TableCell>
                           <TableCell align="center">Tanggal</TableCell>
@@ -100,7 +100,7 @@ export default function Kotak() {
                           <TableCell align="center">Pulang</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody sx={{ '& .MuiTableCell-root': { fontSize: '18px' }, '& .MuiChip-root': { fontSize: '18px', width: 90, fontWeight: 'bold', borderRadius: 2 } }}>
+                      <TableBody sx={{ '& .MuiTableCell-root': { fontSize: { lg: '18px', xs: '13px' } }, '& .MuiChip-root': { fontSize: { lg: '18px', xs: '15px' }, width: 90, fontWeight: 'bold', borderRadius: 2 } }}>
                         {paginatedRows.map((row, index) => (
                           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                             <TableCell align="center">{toUpperCase(row.siswa.nama)}</TableCell>
@@ -138,37 +138,34 @@ export default function Kotak() {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  <Box sx={{ display: 'flex', width: 180, justifyContent: 'space-between', mt: 2 }}>
-                    <Button variant="contained" onClick={() => handleChangePage(page > 0 ? page - 1 : 0)} disabled={page === 0}>
+                  <Box sx={{ display: { lg: 'flex', xs: 'flex' }, position: 'fixed', width: { lg: 180, xs: 220 }, alignItems: { xs: 'end' }, justifyContent: { lg: 'space-between', xs: 'space-around' }, height: { xs: 220 }, mt: 2 }}>
+                    <Button variant="contained" sx={{ width: { xs: 10 }, height: { xs: 30 } }} onClick={() => handleChangePage(page > 0 ? page - 1 : 0)} disabled={page === 0}>
                       Prev
                     </Button>
-                    <Button variant="contained" onClick={() => handleChangePage(page < Math.ceil(rows.length / rowsPerPage) - 1 ? page + 1 : page)} disabled={page >= Math.ceil(rows.length / rowsPerPage) - 1}>
+                    <Button
+                      variant="contained"
+                      sx={{ width: { xs: 10 }, height: { xs: 30 } }}
+                      onClick={() => handleChangePage(page < Math.ceil(rows.length / rowsPerPage) - 1 ? page + 1 : page)}
+                      disabled={rows.length <= rowsPerPage || page >= Math.ceil(rows.length / rowsPerPage) - 1}>
                       Next
                     </Button>
                   </Box>
                 </Box>
               </Box>
-              </Grid>
-                <Grid item xs={6}>
-              </Grid>
-            </Box>
-            <Box p={2}>
-              <ChartComponent />
-            </Box>
-          </Slider>
-          <IconButton
-        onClick={handlePrev}
-        sx={{ position: 'absolute', top: '50%', left: 0, transform: 'translateY(-50%)', zIndex: 1 }}
-      >
-        <ArrowBackIosIcon />
-      </IconButton>
-      <IconButton
-        onClick={handleNext}
-        sx={{ position: 'absolute', top: '50%', right: 0, transform: 'translateY(-50%)', zIndex: 1 }}
-      >
-        <ArrowForwardIosIcon />
-      </IconButton>
-        </Box> 
+            </Grid>
+            <Grid item xs={6}></Grid>
+          </Box>
+          <Box p={2}>
+            <ChartComponent />
+          </Box>
+        </Slider>
+        <IconButton onClick={handlePrev} sx={{ position: 'absolute', top: '50%', left: { lg: 0, xs: -30 }, transform: 'translateY(-50%)', zIndex: 1 }}>
+          <ArrowBackIosIcon />
+        </IconButton>
+        <IconButton onClick={handleNext} sx={{ position: 'absolute', top: '50%', right: { lg: 0, xs: -30 }, transform: 'translateY(-50%)', zIndex: 1 }}>
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </Box>
     </>
   );
 }
