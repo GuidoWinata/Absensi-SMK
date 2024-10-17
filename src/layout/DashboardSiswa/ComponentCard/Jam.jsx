@@ -21,14 +21,14 @@ export default function Kanan() {
     <div>
         <div className='text-center text-gray-600 relative flex content-center items-center'>
             <div className="bagian-kiri">
-                <span className='text-[10.5em] w-[125px]'>{String(displayHours).padStart(2, '0')}</span>
-                <span className='text-[12.5em]'>:</span>
-                <span className='text-[10.5em] w-[125px]'>{String(minutes).padStart(2, '0')}</span>
-                <span className='text-[12.5em]'>.</span>
+                <span className='text-[5em] sm:text-[6em] md:text-[8em] lg:text-[10em] w-[60px] sm:w-[75px] md:w-[100px] lg:w-[125px]'>{String(displayHours).padStart(2, '0')}</span>
+                <span className='text-[6em] sm:text-[7em] md:text-[10em] lg:text-[12em]'>:</span>
+                <span className='text-[5em] sm:text-[6em] md:text-[8em] lg:text-[10em] w-[60px] sm:w-[75px] md:w-[100px] lg:w-[125px]'>{String(minutes).padStart(2, '0')}</span>
+                <span className='text-[6em] sm:text-[7em] md:text-[10em] lg:text-[12em]'>.</span>
             </div>
             <div className='relative flex content-center items-center flex-col ml-2.5'>
-                <span className='text-[3.2em] font-[500] translate-y-[0px]'>{ampm}</span>
-                <span className='text-[3.2em] font-[500] translate-y-[17px]'>{String(seconds).padStart(2, '0')}</span>
+                <span className='text-[1.5em] sm:text-[2em] md:text-[3em] lg:text-[3.5em] font-semibold'>{ampm}</span>
+                <span className='text-[1.5em] sm:text-[2em] md:text-[3em] lg:text-[3.5em] font-semibold'>{String(seconds).padStart(2, '0')}</span>
             </div>
         </div>
     </div>
