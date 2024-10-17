@@ -67,13 +67,16 @@ export const Izin = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center", padding: "40px" }}>
       <Grid
+        container
+        justifyContent="center"
         sx={{
           border: "12px",
           borderRadius: 2,
-          width: "67vh",
+          width: { xs: "100%", sm: "80vh", md: "67vh" }, // Responsive width
           height: "auto",
           boxShadow: "0px 0px 10px rgba(0.5, 0.1, 0.1, 0.1)",
           bgcolor: "#fff",
+          padding: { xs: 2, sm: 3, md: 4 }, // Padding responsive
         }}
       >
         <Box
@@ -85,14 +88,21 @@ export const Izin = () => {
             gap: 2,
             maxWidth: 600,
             margin: "10px auto 0 auto",
-            padding: "10px",
+            padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding
           }}
           onSubmit={handleSubmit}
         >
           <Typography variant="h5" component="h2" sx={{ textAlign: "center" }}>
             Form Request Izin
           </Typography>
-          <FormControl component="fieldset" sx={{display: "flex", justifyContent:"start", width:"60vh"}}>
+          <FormControl
+            component="fieldset"
+            sx={{
+              display: "flex",
+              justifyContent: "start",
+              width: { xs: "100%", sm: "60vh" },
+            }}
+          >
             <FormLabel component="legend">Keterangan</FormLabel>
             <RadioGroup
               aria-label="keterangan"

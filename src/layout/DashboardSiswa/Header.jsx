@@ -97,16 +97,16 @@ export default function Card() {
     return () => clearTimeout(timer);
   }, []);
 
-    const handleAbsen = (event) => {
-      event.preventDefault();
-      setIsLoading(true);
-      setIsButtonDisabled(true);
+  const handleAbsen = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setIsButtonDisabled(true);
 
-      client
-        .post("presensi")
-        .then(({ data }) => {
-          setAbsenStatus(data.status);
-          setAbsenMessage(data.message);
+    client
+      .post("presensi")
+      .then(({ data }) => {
+        setAbsenStatus(data.status);
+        setAbsenMessage(data.message);
         setErrorMessage("");
         setOpenAlert(true);
       })
@@ -133,7 +133,7 @@ export default function Card() {
   return (
     <AnimatedCardBox
       sx={{
-        minHeight: {md:"68vh", sm:"20vh", xs:"20vh"},
+        minHeight: { md: "68vh", sm: "20vh", xs: "20vh" },
         mb: 8,
         display: "flex",
         flexDirection: "column",
@@ -190,10 +190,9 @@ export default function Card() {
         ) : (
           <Typography
             sx={{
-              display: "flex",
+              display: { mb: "block", sm: "block", xs: "none" },
               justifyContent: "center",
               paddingTop: "20px",
-              display: {mb:"block", sm:"block", xs:"none"}
             }}
           >
             Absen kamu akan disesuaikan dengan waktu yang tertera!
