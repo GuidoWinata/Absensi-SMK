@@ -12,7 +12,6 @@ const ChartComponent = () => {
     if (chartRef.current) {
       const ctx = chartRef.current.getContext('2d');
 
-      // Destroy previous chart instance if it exists
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
@@ -67,8 +66,8 @@ const ChartComponent = () => {
           justifyContent: 'center'
         }}
       >
-        <Box sx={{ px: 10, pt: 5, width: '95%', height: '80%', borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: 8, bgcolor:'white' }}>
-            <Typography sx={{ fontSize: '1.9rem', fontWeight: 'bold', color: '#373D3F' }}>Bagan Harian Presensi</Typography>
+        <Box sx={{ px: {lg: 10, xs: 4}, pt: {lg: 5, xs: 2}, width: '95%', height: '80%', borderRadius: 3, boxShadow: "0px 12px 30px 9px #DDE9F9", mt: {lg: 8, xs: 0}, bgcolor:'white' }}>
+            <Typography sx={{ fontSize: {lg: '1.9rem', xs: '1.2rem'}, fontWeight: 'bold', color: '#373D3F' }}>Bagan Harian Presensi</Typography>
             <Box sx={{height:'90%'}}>
             <canvas ref={chartRef} style={{
                 width: '100%',

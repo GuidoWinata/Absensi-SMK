@@ -86,7 +86,7 @@ export default function Card() {
                     Izin
                   </Typography>
                   <Typography variant="h5" color="#00d8b6" sx={{ fontWeight: 'bold', fontSize: 40 }}>
-                    19
+                    {izinCount}
                   </Typography>
                   <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#01f8d3">
                     Siswa
@@ -119,7 +119,7 @@ export default function Card() {
                     Telat
                   </Typography>
                   <Typography variant="h5" color="#ffa201" sx={{ fontWeight: 'bold', fontSize: 40 }}>
-                    19
+                    {telatCount}
                   </Typography>
                   <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#ffae1f">
                     Siswa
@@ -152,7 +152,7 @@ export default function Card() {
                     Alpha
                   </Typography>
                   <Typography variant="h5" color="#ff0b21" sx={{ fontWeight: 'bold', fontSize: 40 }}>
-                    19
+                    {alphaCount}
                   </Typography>
                   <Typography variant="subtitle2" fontSize={18} fontWeight="semibold" color="#dc3545">
                     Siswa
