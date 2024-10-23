@@ -24,11 +24,14 @@ export default function TableRiwayat({ selectedDate }) {
 
     if (!dateToFetch) return; // Jika tanggal tidak valid, hentikan eksekusi
 
+    const year = new Date(dateToFetch).getFullYear();
+    const month = String(new Date(dateToFetch).getMonth() + 1).padStart(2, "0"); // Menambahkan padding 0 di depan bulan jika kurang dari 10
+
     setLoading(true);
 
-    // Fetch data berdasarkan tanggal yang dipilih atau default
+    // Fetch data berdasarkan bulan dan tahun yang dipilih atau default
     client
-      .get(`presensi?date=${dateToFetch}`)
+      .get(`presensi?year=${year}&month=${month}`) // Adjusted the endpoint to fetch by year and month
       .then(({ data }) => {
         const updatedData = data.data.map((item) => {
           const dateObj = new Date(item.tanggal);
