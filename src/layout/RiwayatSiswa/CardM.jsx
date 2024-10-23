@@ -151,7 +151,7 @@ export const CardM = () => {
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
-        loop={true}
+        loop={false}
         slidesPerView={3} // Show 3 cards at a time
         spaceBetween={30} // Space between slides
         style={{ width: '100%', maxWidth: '600px', margin: '0 auto'}} // Center the Swiper
@@ -159,30 +159,38 @@ export const CardM = () => {
           rotate: 0,
           stretch: 0,
           depth: 100,
-          modifier: 4.5,
-        }}
-        pagination={{ clickable: true }}
+          modifier: 2.5, // Default 4.5, mengurangi modifier bisa mengurangi efek bayangan
+          slideShadows: false,        }}
+          pagination={{
+            clickable: true,
+            el: '.swiper-pagination', // Target pagination
+            bulletClass: 'swiper-pagination-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active',
+            renderBullet: (index, className) => {
+              return `<span class="${className}" style="background: #007bff; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%;"></span>`;
+            },
+          }}
         navigation={true}
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="swiper_container"
       >
         <SwiperSlide>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            {card_1}
+        <Box sx={{ display: 'flex', justifyContent: 'center',boxShadow: 'none'  }}>
+        {card_1}
           </Box>
         </SwiperSlide>  
         <SwiperSlide>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            {card_2}
+        <Box sx={{ display: 'flex', justifyContent: 'center',boxShadow: 'none'  }}>
+        {card_2}
           </Box>            
         </SwiperSlide>
         <SwiperSlide>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center',boxShadow: 'none'  }}>
             {card_3}
           </Box>
         </SwiperSlide>
         {/* Duplicate slides for seamless swiping */}
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {card_1}
           </Box>
@@ -196,7 +204,7 @@ export const CardM = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             {card_3}
           </Box>
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </div>
   )
