@@ -9,19 +9,22 @@ import Slider from 'react-slick';
 import ChartComponent from './ChartComponent';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import LoadingSpin from '../../components/LoadingSpin';
 import client from '../../router/Client';
 import { formatDate, toUpperCase, capitalizeWords, formatTime, isLate } from '../../helpers/helper';
 
 export default function Kotak() {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true)
   const rowsPerPage = 4;
 
   useEffect(() => {
     client.get('cek-kehadiran').then(({ data }) => {
       console.log(data.data);
       setData(data.data);
-    });
+      setLoading(false)
+    })
   }, []);
 
   const handleChangePage = (newPage) => {
@@ -57,7 +60,10 @@ export default function Kotak() {
     slidesToScroll: 1,
     arrows: false,
   };
-
+  if (loading) {
+    return <LoadingSpin />
+  }
+  
   const handlePrev = () => {
     sliderRef.current.slickPrev();
   };
@@ -65,6 +71,11 @@ export default function Kotak() {
   const handleNext = () => {
     sliderRef.current.slickNext();
   };
+
+
+  if (!data || data.length === null) {
+    return <div>Belum ada yang Absen😪</div>
+  }
 
   return (
     <>
