@@ -18,9 +18,12 @@ export default function KotakTiga() {
       container
       justifyContent="center"
       alignItems="center"
-      style={{ height: {md:"40%", sm:"40%", xs:"20%"} }}
+      sx={{ 
+        height: {md:"40%", sm:"40%", xs:"20%"},
+        marginLeft: {md:0, sm:0, xs:2}
+    }}
     >
-      <Grid item>
+      <Grid item >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {isMobile ? (
             <DatePicker

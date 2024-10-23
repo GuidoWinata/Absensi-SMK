@@ -14,6 +14,9 @@ import TableRiwayat from "./TableRiwayat";
 import Card from "./Card";
 import Kalender from "./Kalender";
 import { TanggalContext } from "./TanggalPIlih"; // Pastikan impor benar
+import { CardM } from "./CardM";
+import { TanggalProvider } from "../../layout/RiwayatSiswa/TanggalPIlih";
+import { useMediaQuery } from "react-responsive";
 
 const slideInRight = keyframes`
   from {
@@ -60,7 +63,10 @@ const AnimatedKalenderGrid = styled(Grid)`
   animation: ${slideInDown} 0.5s ease-out;
 `;
 
+
+
 export default function LayoutMobile() {
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const { selectedDate } = useContext(TanggalContext); // Mengambil selectedDate dari context
 
     const todos = {
@@ -112,6 +118,8 @@ export default function LayoutMobile() {
                             justifyContent: "center",
                             bgcolor: "#2D8EFF",
                             boxShadow: "2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)",
+                            marginLeft: {md:0, sm:0, xs:2},
+                            mb: 3
                         }}
                     >
                         <Grid sx={{ height: "20%", marginTop: 2 }}>
@@ -149,19 +157,21 @@ export default function LayoutMobile() {
                         </Box>
                     </AnimatedKalenderGrid>
                     <AnimatedCardBox
-                        sx={{
-                            height: "35%",
+                        sx={{                            
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            paddingBottom: "3px",
-                            width: "150%",
+                            height: "35%",
+                            width: "120%",
                             border: "1px",
-                            borderRadius: 2,
-                            marginLeft: "95px"
+                            flexDirection: "column",
+                            // borderRadius: 2,
+                            justifyContent: "center",
+                            // bgcolor: "#2D8EFF",
+                            // boxShadow: "2px 4px 8px rgba(0.5, 0.1, 0.1, 0.1)",
+                            marginLeft: {md:0, sm:0, xs:2},
+                            mb: "30px"
                         }}
                     >
-                        <Card />
+                        <CardM />
                     </AnimatedCardBox>
                     <AnimatedTableBox
                         sx={{

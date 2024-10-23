@@ -28,12 +28,13 @@ export default function Card() {
     });
   }, []);
   return (
-    <Grid container spacing={2} sx={{ padding: "20px" }}>
-      <Grid item sm={4}>
+    <Grid container spacing={2} sx={{ padding: "20px", flexDirection:{lg:"row", md:"row", sm:"column"}}}>
+      <Grid item sm={4} sx={{ marginLeft: 3 }}>
         <Box
           sx={{
             bgcolor: "#DDE9F9",
-            height: 270,
+            height: "full ",
+            width: 240,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -59,11 +60,12 @@ export default function Card() {
           </Box>
         </Box>
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={4} sx={{ marginLeft: 3 }}>
         <Box
           sx={{
             bgcolor: "#E6FFFA",
-            height: 270,
+            height: 150,
+            width: 310,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -89,11 +91,12 @@ export default function Card() {
           </Box>
         </Box>
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={4} sx={{ marginLeft: 3 }}>
         <Box
           sx={{
             bgcolor: "#FEF5E5",
-            height: 270,
+            height: 150,
+            width: 310,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

@@ -14,6 +14,7 @@ import TableRiwayat from "./TableRiwayat";
 import Card from "./Card";
 import Kalender from "./Kalender";
 import { TanggalContext } from "./TanggalPIlih"; // Pastikan impor benar
+import { CardM } from "./CardM";
 
 const slideInRight = keyframes`
   from {
