@@ -69,7 +69,7 @@ export default function Cardd() {
               <EventAvailableIcon sx={{ fontSize: 70, color: '#2D8EFF', display:{xs: 'none'} }} />
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Box sx={{ textAlign:'center' }}>
-                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#2D8EFF', px: 3, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
+                  <Typography variant="caption" fontSize={18} sx={{ bgcolor:'#2D8EFF', px: 3.5, pt: 2, pb: 0.5 }} fontWeight="semibold" color="#ffff">
                     Presensi
                   </Typography>
                   <Typography variant="h5" color="#0175f8" sx={{ fontWeight: 'bold', fontSize: 40 }}>
