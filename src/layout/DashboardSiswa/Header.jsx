@@ -91,44 +91,40 @@ export default function Card() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
+    const fetchAbsenStatus = async () => {
+      setIsLoading(true); // Aktifkan loading sebelum request
+      try {
+        const { data } = await client.get("check");
+        setAbsenStatus(data.status); // Update status absen dari API
+      } catch (error) {
+        setErrorMessage("Gagal memuat status absen.");
+        setOpenAlert(true);
+      } finally {
+        setIsLoading(false); // Matikan loading setelah selesai request
+      }
+    };
+
+    fetchAbsenStatus();
   }, []);
 
-  const handleAbsen = (event) => {
+  const handleAbsen = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
-    setIsButtonDisabled(true);
+    setIsButtonDisabled(true); // Matikan tombol selama request
+    setIsLoading(true); // Set loading state saat request dimulai
 
-    client
-      .post("presensi")
-      .then(({ data }) => {
-        setAbsenStatus(data.status);
-        setAbsenMessage(data.message);
-        setErrorMessage("");
-        setOpenAlert(true);
-      })
-      .catch((error) => {
-        setErrorMessage(error.response.data.message);
-        setOpenAlert(true);
-      })
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-          setIsButtonDisabled(false);
-        }, 800);
-      });
-  };
-
-  useEffect(() => {
-    if (!isLoading) {
-      client.get("check").then(({ data }) => {
-        setAbsenStatus(data.status);
-      });
+    try {
+      const { data } = await client.post("presensi");
+      setAbsenStatus(data.status); // Update status sesuai respons
+      setAbsenMessage(data.message); // Tampilkan pesan sukses
+      setOpenAlert(true); // Tampilkan alert
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
+      setOpenAlert(true); // Tampilkan alert error
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai request
+      setIsButtonDisabled(false); // Aktifkan tombol kembali
     }
-  }, [isLoading]);
+  };
 
   return (
     <AnimatedCardBox
@@ -190,7 +186,7 @@ export default function Card() {
         ) : (
           <Typography
             sx={{
-              display: { mb: "block", sm: "block", xs: "none" },
+              display: { lg: "flex", mb: "block", sm: "block", xs: "none" },
               justifyContent: "center",
               paddingTop: "20px",
             }}
