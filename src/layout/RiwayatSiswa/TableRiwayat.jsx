@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import client from "../../router/Client";
+import { formatDate, toUpperCase, capitalizeWords, formatTime, isLate } from '../../helpers/helper';
+
 
 export default function TableRiwayat({ selectedDate }) {
   const [dataRiwayat, setDataRiwayat] = useState([]);
@@ -150,7 +152,7 @@ export default function TableRiwayat({ selectedDate }) {
             {dataRiwayat.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.hari}</TableCell>
-                <TableCell>{row.tanggal}</TableCell>
+                <TableCell>{formatDate(row.tanggal)}</TableCell>
                 <TableCell>{row.waktu_datang}</TableCell>
                 <TableCell>{row.waktu_pulang}</TableCell>
                 <TableCell>{row.keterangan}</TableCell>
