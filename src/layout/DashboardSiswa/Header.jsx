@@ -186,9 +186,9 @@ export default function Card() {
         ) : (
           <Typography
             sx={{
-              display: { lg: "flex", mb: "block", sm: "block", xs: "none" },
               justifyContent: "center",
               paddingTop: "20px",
+              display: {mb:"flex", sm:"flex", xs:"none"}
             }}
           >
             Absen kamu akan disesuaikan dengan waktu yang tertera!
