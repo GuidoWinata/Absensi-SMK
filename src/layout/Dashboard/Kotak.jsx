@@ -98,7 +98,7 @@ export default function Kotak() {
                       <Input variant="soft" sx={{ width: 300, xs: { display: 'none' } }} startDecorator={<SearchIcon />} placeholder="Cari" />
                     </CssVarsProvider>
                   </Box>
-                  <Typography sx={{ fontSize: { lg: '1.9rem', xs: '1.5rem' }, fontWeight: 'bold', color: '#373D3F' }}>Rekap Presensi Siswa</Typography>
+                  <Typography sx={{ fontSize: { lg: '1.9rem', xs: '1.5rem' }, fontWeight: 'bold', color: '#373D3F' }}>Presensi Siswa Hari Ini</Typography>
                   <TableContainer component={Paper} sx={{ mt: 4 }}>
                     <Table sx={{ minWidth: 250 }}>
                       <TableHead sx={{ bgcolor: '#DDE9F9', '& .MuiTableCell-root': { fontWeight: 600, width: 900, fontSize: { lg: '19px', xs: '15px' }, color: '#32383E' } }}>
