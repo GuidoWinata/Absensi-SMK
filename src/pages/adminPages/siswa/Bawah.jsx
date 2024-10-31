@@ -69,7 +69,7 @@ export default function Kotak() {
       Tanggal: formatDate(row.tanggal),
       Keterangan: capitalizeWords(row.keterangan),
       Hadir: formatTime(row.waktu_datang),
-      Pulang: row.pulang,
+      Pulang: formatTime(row.waktu_pulang),
     }));
 
     // Membuat worksheet dan workbook
@@ -151,7 +151,7 @@ export default function Kotak() {
                                 sx={{
                                   width: 90,
                                   backgroundColor: row.keterangan === 'alpha' ? '#FBF2EF' : row.keterangan === 'hadir' ? '#E6FFFA' : row.keterangan === 'telat' ? '#FEF5E5' : row.keterangan === 'izin' ? '#b4fff6' : '#555E68',
-                                  color: row.keterangan === 'alpha' ? '#DC3545' : row.keterangan === 'hadir' ? '#00D8B6' : row.keterangan === 'telat' ? '#FFAE1F' : row.keterangan === 'izin' ? '#00d8b6' : '#555E68',
+                                  color: row.keterangan === 'alpha' ? '#DC3545' : row.keterangan === 'hadir' ? '#00D8B6' : row.keterangan === 'telat' ? '#FFAE1F' : row.keterangan === 'izin' ? '#00d8b6' : '#555E68' ? row.keterangan === 'sakit' : '#FFAE1F',
                                 }}
                               />
                             </TableCell>
@@ -166,10 +166,10 @@ export default function Kotak() {
                             </TableCell>
                             <TableCell align="center">
                               <Chip
-                                label={row.pulang}
+                                label={formatTime(row.waktu_pulang)}
                                 sx={{
-                                  backgroundColor: row.pulang === 'Tdk Absen' ? '#FBF2EF' : '#DDE9F9',
-                                  color: row.pulang === 'Tdk Absen' ? '#DC3545' : '#2D8EFF',
+                                  backgroundColor: row.waktu_pulang === 'Tdk Absen' ? '#FBF2EF' : '#DDE9F9',
+                                  color: row.waktu_pulang === 'Tdk Absen' ? '#DC3545' : '#2D8EFF',
                                 }}
                               />
                             </TableCell>
