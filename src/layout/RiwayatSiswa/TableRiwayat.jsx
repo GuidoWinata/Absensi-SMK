@@ -79,6 +79,8 @@ export default function TableRiwayat({ selectedDate }) {
         });
 
         setDataRiwayat(updatedData);
+        console.log(updatedData);
+
         setLoading(false);
       })
       .catch((error) => {
@@ -162,7 +164,7 @@ export default function TableRiwayat({ selectedDate }) {
             {dataRiwayat.map((row, index) => (
               <TableRow key={index}>
                 <TableCell>{row.hari}</TableCell>
-                <TableCell>{formatDate(row.tanggal)}</TableCell>
+                <TableCell>{row.tanggal}</TableCell>
                 <TableCell>{row.waktu_datang}</TableCell>
                 <TableCell>{row.waktu_pulang}</TableCell>
                 <TableCell>{row.keterangan}</TableCell>
